@@ -2,6 +2,10 @@
 #include "Player.h"
 using namespace std;
 
+Player::Player(){
+    name = "";
+}
+
 Player::Player(string name_){
     name = name_;
 }

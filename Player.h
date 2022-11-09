@@ -10,6 +10,7 @@ class Player
         int fullness;
 
     public:
+        Player();
         Player(string name);
         string getName();
         int getFullness();
