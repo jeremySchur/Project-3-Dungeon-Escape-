@@ -12,6 +12,7 @@ using namespace std;
 
 class Group
 {
+    // private members
     private:
         vector<Player> players;
         int rooms_cleared = 0;
@@ -23,10 +24,12 @@ class Group
         int weapons[5] = {0,0,0,0,0};
         int armor = 0;
         int treasures[5] = {0,0,0,0,0};
-        
+    //public members
     public:
         Group();
         bool addPlayer(Player p);
+
+        // getters
         int getRoomsCleared();
         int getNumKeys();
         int getAngerLevel();
@@ -40,6 +43,8 @@ class Group
         int getNumRapiers();
         int getNumBattleAxes();
         int getNumLongSwords();
+        
+        //setters
         void setRoomsCleared(int rooms_cleared_);
         void setNumKeys(int num_keys_);
         void setAngerLevel(int anger_level_);

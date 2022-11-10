@@ -9,15 +9,18 @@ using namespace std;
 
 class Player
 {
-    private:
+    // private members
+    private: 
         string name;
         int fullness;
-
+    // public members
     public:
         Player();
         Player(string name);
+        //getters
         string getName();
         int getFullness();
+        //setters
         void setFullness(int fullness_);
 
 };

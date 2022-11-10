@@ -15,10 +15,12 @@ class Merchant
 
     public:
         Merchant();
+        // getters
         double getMultiplyer();
-        void printMenu();
-        void updateMultiplyer();
         bool getSpeakable();
+        void printMenu();
+        
+        void updateMultiplyer();
         void setSpeakable(bool speak);
         void closeMerchant();
 };
