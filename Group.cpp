@@ -1,10 +1,13 @@
 //Group.cpp
 //CSCI 1300 Fall 2022
-//Author: Jeremy Schur and Anthony Radkee
-//Recitation: 305/??? - Nikhith Sannidhi
-#include <iostream>
-#include <vector>
+//Author: Jeremy Schur and Anthony Radke
+//Recitation: 305/221 - Nikhith Sannidhi
 #include "Group.h"
+#include <iostream>
+#include <cassert>
+#include <string>
+#include <fstream>
+#include <vector>
 using namespace std;
 
     //creates a group

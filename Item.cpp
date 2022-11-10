@@ -1,4 +1,12 @@
+//Item.cpp
+//CSCI 1300 Fall 2022
+//Author: Jeremy Schur and Anthony Radke
+//Recitation: 305/221 - Nikhith Sannidhi
 #include <iostream>
+#include <string>
+#include <cassert>
+#include <fstream>
+#include <vector>
 #include "Item.h"
 using namespace std;
 

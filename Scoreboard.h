@@ -1,3 +1,7 @@
+//Scoreboard.h
+//CSCI 1300 Fall 2022
+//Author: Jeremy Schur and Anthony Radke
+//Recitation: 305/221 - Nikhith Sannidhi
 #ifndef SCOREBOARD_H
 #define SCOREBOARD_H
 #include <iostream>
