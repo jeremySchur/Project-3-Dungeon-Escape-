@@ -21,3 +21,18 @@ void Merchant::updateMultiplyer(){
 void Merchant::printMenu(){
 
 }
+
+//returns true if you are able to speak to the merchant, false otherwise
+bool Merchant::getSpeakable(){
+    return speakable;
+}
+
+//sets speakable to speak
+void Merchant::setSpeakable(bool speak){
+    speakable = speak;
+}
+
+//prints message and sets the speakable back to false
+void Merchant::closeMerchant(){
+    
+}

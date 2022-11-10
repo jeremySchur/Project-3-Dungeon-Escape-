@@ -7,13 +7,16 @@ class Merchant
 {
     private:
        double multiplyer = 1.0;
+       bool speakable = false;
 
     public:
         Merchant();
         double getMultiplyer();
         void printMenu();
         void updateMultiplyer();
-        
+        bool getSpeakable();
+        void setSpeakable(bool speak);
+        void closeMerchant();
 };
 #endif;
 
