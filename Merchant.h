@@ -11,17 +11,14 @@ class Merchant
 {
     private:
        double multiplyer = 1.0;
-       bool speakable = false;
 
     public:
         Merchant();
         // getters
         double getMultiplyer();
-        bool getSpeakable();
         void printMenu();
         
         void updateMultiplyer();
-        void setSpeakable(bool speak);
         void closeMerchant();
 };
 #endif

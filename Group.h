@@ -43,6 +43,12 @@ class Group
         int getNumRapiers();
         int getNumBattleAxes();
         int getNumLongSwords();
+        int getNumArmor();
+        int getNumRings();
+        int getNumNecklace();
+        int getNumBraclet();
+        int getNumCirclet();
+        int getNumGoblet();
         
         //setters
         void setRoomsCleared(int rooms_cleared_);

@@ -84,6 +84,26 @@ using namespace std;
         return weapons[4];
     }
 
+    int Group::getNumArmor(){
+        return armor;
+    }
+
+    int Group::getNumRings(){
+        return treasures[0];
+    }
+    int Group::getNumNecklace(){
+        return treasures[1];
+    }
+    int Group::getNumBraclet(){
+        return treasures[2];
+    }
+    int Group::getNumCirclet(){
+        return treasures[3];
+    }
+    int Group::getNumGoblet(){
+        return treasures[4];
+    }
+
     //sets the number of rooms cleared 
     void Group::setRoomsCleared(int rooms_cleared_){
         rooms_cleared = rooms_cleared_;
