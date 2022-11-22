@@ -30,8 +30,8 @@ private:
     int room_positions_[max_rooms_][2];   // stores the (row,col) positions of rooms present on map
     char map_data_[num_rows_][num_cols_]; // stores the character that will be shown at a given (row,col)
 
-    int npc_count_;  // stores number of misfortunes currently on map
-    int room_count_; // stores number of sites currently on map
+    int npc_count_ = 0;  // stores number of misfortunes currently on map
+    int room_count_ = 0; // stores number of sites currently on map
 public:
     Map();
 
@@ -52,6 +52,7 @@ public:
     bool isExplored(int row, int col);
     bool isFreeSpace(int row, int col);
     bool isDungeonExit(int row, int col);
+    void foundNPC(int row, int col);
 
     // setters
     void setPlayerPosition(int row, int col);

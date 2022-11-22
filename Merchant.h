@@ -24,5 +24,5 @@ class Merchant
         void setSpeakable(bool speak);
         void closeMerchant();
 };
-#endif;
+#endif
 

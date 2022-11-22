@@ -16,6 +16,7 @@ Player::Player(){
 
 Player::Player(string name_){
     name = name_;
+    fullness = 50;
 }
 
 //returns the name of the player

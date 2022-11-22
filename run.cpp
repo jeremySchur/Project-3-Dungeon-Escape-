@@ -16,5 +16,18 @@ using namespace std;
 
 //main for the entire game run
 int main(){
-    
+    Map gameMap = Map();
+    char direction;
+
+    while (true){
+        gameMap.displayMap();
+        cout << "What direction would you like to move (w,a,s,d)." << endl;
+        cin >> direction;
+        while (!gameMap.move(direction)){
+            cout << "You are trying to move outside the bounds of the map (12x12). Please enter a different direction (w,a,s,d)." << endl;
+            cin >> direction;
+        }
+    }
+
+    return 0;
 }
