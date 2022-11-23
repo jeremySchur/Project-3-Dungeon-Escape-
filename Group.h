@@ -28,6 +28,10 @@ class Group
     public:
         Group();
         bool addPlayer(Player p);
+        Player getPlayer(int index);
+        void setPlayerFullness(int index, int fullness);
+        int getSize();
+        void removePlayer(int index);
 
         // getters
         int getRoomsCleared();
@@ -64,6 +68,12 @@ class Group
         void setNumRapiers(int num_rapiers);
         void setNumBattleAxes(int num_battleAxes);
         void setNumLongSwords(int num_longSwords);
+        void setNumArmor(int num_armor);
+        void setNumRings(int num_rings);
+        void setNumNecklace(int num_necklace);
+        void setNumBraclet(int num_braclet);
+        void setNumCirclet(int num_circlet);
+        void setNumGoblet(int num_goblet);
 
 };
 #endif

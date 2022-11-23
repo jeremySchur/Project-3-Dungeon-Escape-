@@ -19,6 +19,22 @@ using namespace std;
         players.push_back(p);
     }
 
+    Player Group::getPlayer(int index){
+        return players.at(index);
+    }
+
+    void Group::setPlayerFullness(int index, int fullness){
+        players.at(index).setFullness(fullness);
+    }
+
+    int Group::getSize(){
+        return players.size();
+    }
+
+    void Group::removePlayer(int index){
+        
+    }
+
     //returns the rooms cleared
     int Group::getRoomsCleared(){
         return rooms_cleared;
@@ -167,4 +183,23 @@ using namespace std;
     //sets the number of longswords
     void Group::setNumLongSwords(int num_longSwords){
         weapons[4] = num_longSwords;
+    }
+
+    void Group::setNumArmor(int num_armor){
+        armor = num_armor;
+    }
+    void Group::setNumRings(int num_rings){
+        treasures[0] = num_rings;
+    }
+    void Group::setNumNecklace(int num_necklace){
+        treasures[1] = num_necklace;
+    }
+    void Group::setNumBraclet(int num_braclet){
+        treasures[2] = num_braclet;
+    }
+    void Group::setNumCirclet(int num_circlet){
+        treasures[3] = num_circlet;
+    }
+    void Group::setNumGoblet(int num_goblet){
+        treasures[4] = num_goblet;
     }

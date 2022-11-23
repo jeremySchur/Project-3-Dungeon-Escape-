@@ -154,7 +154,12 @@ bool Map::isExplored(int row, int col){
 //returns true if the inputted (row,col) is a free space
 //returns false otherwise
 bool Map::isFreeSpace(int row, int col){
-
+    if (map_data_[row][col] == UNEXPLORED){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 //returns true if the inputted (row,col) is the dungeon exit
