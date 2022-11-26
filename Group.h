@@ -21,8 +21,9 @@ class Group
         int gold = 100;
         int ingredients = 0;
         int cookware[3] = {0,0,0};
-        int weapons[5] = {0,0,0,0,0};
-        int armor = 0;
+        int weapons[5] = {0,0,0,0,0}; //MAX 5 TOTAL
+        int totalWeapons = 0;
+        int armor = 0;  //MAX 5
         int treasures[5] = {0,0,0,0,0};
     //public members
     public:
@@ -53,6 +54,7 @@ class Group
         int getNumBraclet();
         int getNumCirclet();
         int getNumGoblet();
+        int getTotalWeapons();
         
         //setters
         void setRoomsCleared(int rooms_cleared_);
@@ -63,17 +65,19 @@ class Group
         void setNumPots(int num_pots);
         void setNumPans(int num_pans);
         void setNumCauldrons(int num_cauldrons);
-        void setNumClubs(int num_clubs);
-        void setNumSpears(int num_spears);
-        void setNumRapiers(int num_rapiers);
-        void setNumBattleAxes(int num_battleAxes);
-        void setNumLongSwords(int num_longSwords);
-        void setNumArmor(int num_armor);
+        bool setNumClubs(int num_clubs);
+        bool setNumSpears(int num_spears);
+        bool setNumRapiers(int num_rapiers);
+        bool setNumBattleAxes(int num_battleAxes);
+        bool setNumLongSwords(int num_longSwords);
+        bool setNumArmor(int num_armor);
         void setNumRings(int num_rings);
         void setNumNecklace(int num_necklace);
         void setNumBraclet(int num_braclet);
         void setNumCirclet(int num_circlet);
         void setNumGoblet(int num_goblet);
 
+        void statusUpdate();
+        void cookFood();
 };
 #endif

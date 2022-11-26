@@ -5,6 +5,7 @@
 #ifndef MERCHANT_H
 #define MERCHANT_H
 #include <iostream>
+#include "Group.h"
 using namespace std;
 
 class Merchant
@@ -19,7 +20,7 @@ class Merchant
         void printMenu();
         
         void updateMultiplyer();
-        void closeMerchant();
+        void openMerchant(Group &players);
 };
 #endif
 

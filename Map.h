@@ -6,6 +6,7 @@
 #define MAP_H
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -26,12 +27,15 @@ private:
 
     int player_position_[2];              // player position (row,col)
     int dungeon_exit_[2];                 // exit location of the dungeon
-    int npc_positions_[max_npcs_][3];     // stores the (row,col) positions of NPCs present on map and if they have been found
+    int npc_positions_[max_npcs_][3];    // stores the (row,col) positions of NPCs present on map and if they have been found
     int room_positions_[max_rooms_][2];   // stores the (row,col) positions of rooms present on map
     char map_data_[num_rows_][num_cols_]; // stores the character that will be shown at a given (row,col)
+    int explored_positions_[144][2];   // stores the (row,col) positions of explored spaces 
 
     int npc_count_ = 0;  // stores number of misfortunes currently on map
-    int room_count_ = 0; // stores number of sites currently on map
+    int room_count_ = 0; // stores number of rooms currently on map
+    int exploredCount = 0; // stores number of explored spaces on the map
+
 public:
     Map();
 
@@ -65,6 +69,6 @@ public:
     bool addRoom(int row, int col);
     bool removeNPC(int row, int col);
     bool removeRoom(int row, int col);
-    void exploreSpace(int row, int col);
+    void addExploreSpace(int row, int col);
 };
 #endif

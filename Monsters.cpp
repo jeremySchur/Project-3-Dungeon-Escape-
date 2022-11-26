@@ -74,9 +74,9 @@ Monsters::Monsters(string fileName){
     }
 }
 
-bool Monsters::fightMonster(Group players){
+bool Monsters::fightMonster(Group players, int tier){
     srand(time(0));
-    int random, d, userInput, tier = players.getRoomsCleared() + 1;
+    int random, d, userInput;
     double outcome;
     int total = players.getNumClubs() + players.getNumSpears() + 2*players.getNumRapiers() + 3*players.getNumBattleAxes() + 4*players.getNumLongSwords();
     if (players.getNumClubs() == 1 && players.getNumSpears() == 1 && players.getNumRapiers() == 1 && players.getNumBattleAxes() == 1 && players.getNumLongSwords() == 1){

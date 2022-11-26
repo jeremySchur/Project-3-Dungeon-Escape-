@@ -143,23 +143,18 @@ bool Map::isRoomLocation(int row, int col){
 //returns true if the inputted (row,col) is an explored space
 //returns false otherwise
 bool Map::isExplored(int row, int col){
-    if (map_data_[row][col] == EXPLORED){
-        return true;
+    for (int i = 0; i < exploredCount; i++){
+        if (explored_positions_[i][0] == row && explored_positions_[i][1] == col){
+            return true;
+        }
     }
-    else{
-        return false;
-    }
+    return false;
 }
 
 //returns true if the inputted (row,col) is a free space
 //returns false otherwise
 bool Map::isFreeSpace(int row, int col){
-    if (map_data_[row][col] == UNEXPLORED){
-        return true;
-    }
-    else{
-        return false;
-    }
+
 }
 
 //returns true if the inputted (row,col) is the dungeon exit
@@ -306,16 +301,38 @@ bool Map::addRoom(int row, int col){
 //returns true if an NPC can be removed, i.e. there is an NPC at (row,col)
 //returns false otherwise
 bool Map::removeNPC(int row, int col){
-
+    for (int i = 0; i < npc_count_; i++){
+        if (npc_positions_[i][0] == row && npc_positions_[i][1] == col){
+            npc_positions_[i][0] = -1;
+            npc_positions_[i][1] = -1;
+            npc_count_--;
+            map_data_[row][col] = EXPLORED;
+            explored_positions_[exploredCount][0] = row;
+            explored_positions_[exploredCount++][1] = col;
+            break;
+        }
+    }
 }
 
 //returns true if a room can be removed, i.e. there is a room at (row,col)
 //returns false otherwise
 bool Map::removeRoom(int row, int col){
-
+    for (int i = 0; i < room_count_; i++){
+        if (room_positions_[i][0] == row && room_positions_[i][1] == col){
+            room_positions_[i][0] = -1;
+            room_positions_[i][1] = -1;
+            room_count_--;
+            map_data_[row][col] = EXPLORED;
+            explored_positions_[exploredCount][0] = row;
+            explored_positions_[exploredCount++][1] = col;
+            break;
+        }
+    }
 }
 
 //sets the map value at (row,col) to an explored space
-void Map::exploreSpace(int row, int col){
-
+void Map::addExploreSpace(int row, int col){
+    explored_positions_[exploredCount][0] = row;
+    explored_positions_[exploredCount][1] = col;
+    exploredCount++;
 }
