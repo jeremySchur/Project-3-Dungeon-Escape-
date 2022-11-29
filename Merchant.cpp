@@ -6,11 +6,52 @@
 #include "Merchant.h"
 #include "Group.h"
 #include <string>
+#include <fstream>
 using namespace std;
+
+int split(string input_string, char separator, string arr[], int arr_size){
+    //declaring variable
+    int breakPoint = 0, index = 0, subLen = 0;
+    
+    //if the input_string is empty return 0
+    if (input_string == ""){
+        return 0;
+    }
+    //otherwise, loop through input string
+    else{
+        for (int i = 0; i < input_string.length(); i++){
+            subLen++;
+            
+            //if a separator is found, add the substr from breakPoint to one before the separator to arr
+            if (input_string[i] == separator){
+                arr[index++] = input_string.substr(breakPoint, subLen - 1);
+                breakPoint = i+1;
+                subLen = 0;
+            }
+
+            if (index >= arr_size){
+                return -1;
+            }
+        }
+        //add the final substr since the string cannot end in a separator 
+        arr[index++] = input_string.substr(breakPoint);
+
+        return index;
+    }
+}
 
 //default constructor
 Merchant::Merchant(){
+    ifstream file("riddles.txt");
+    string line;
+    string splitLine[2];
 
+    while (!file.eof()){
+        getline(file, line);
+        split(line, '~', splitLine, 2);
+        riddles[num_riddles][0] = splitLine[0];
+        riddles[num_riddles++][1] = splitLine[1];
+    }
 }
 
 //returns the multiplyer the merchant has on their prices
@@ -29,7 +70,7 @@ void Merchant::printMenu(){
 }
 
 
-void Merchant::openMerchant(Group &players){
+bool Merchant::openMerchant(Group &players){
     bool open = true;
     int userInput;
     char userDecision;
@@ -218,10 +259,15 @@ void Merchant::openMerchant(Group &players){
                     cin >> userDecision;
                 }
                 if (userDecision == 'y'){
-                    cout << "Thank you for your patronage! What else can I get for you?" << endl;
-                    cout << endl;
-                    players.setNumClubs(players.getNumClubs() + userInput);
-                    players.setGold(players.getGold() - ((2*multiplyer) * userInput));
+                    if (players.setNumClubs(players.getNumClubs() + userInput)){
+                        cout << "Thank you for your patronage! What else can I get for you?" << endl;
+                        cout << endl;
+                        players.setGold(players.getGold() - ((2*multiplyer) * userInput));
+                    }
+                    else{
+                        cout << "You cannot carry any more weapons. What else can I get for you?" << endl;
+                        cout << endl;
+                    }
                 }
                 else{
                     cout << "What can I get for you?" << endl;
@@ -242,10 +288,15 @@ void Merchant::openMerchant(Group &players){
                     cin >> userDecision;
                 }
                 if (userDecision == 'y'){
-                    cout << "Thank you for your patronage! What else can I get for you?" << endl;
-                    cout << endl;
-                    players.setNumSpears(players.getNumSpears() + userInput);
-                    players.setGold(players.getGold() - ((2*multiplyer) * userInput));
+                    if (players.setNumSpears(players.getNumSpears() + userInput)){
+                        cout << "Thank you for your patronage! What else can I get for you?" << endl;
+                        cout << endl;
+                        players.setGold(players.getGold() - ((2*multiplyer) * userInput));
+                    }
+                    else{
+                        cout << "You cannot carry any more weapons. What else can I get for you?" << endl;
+                        cout << endl;
+                    }
                 }
                 else{
                     cout << "What can I get for you?" << endl;
@@ -266,10 +317,15 @@ void Merchant::openMerchant(Group &players){
                     cin >> userDecision;
                 }
                 if (userDecision == 'y'){
-                    cout << "Thank you for your patronage! What else can I get for you?" << endl;
-                    cout << endl;
-                    players.setNumRapiers(players.getNumRapiers() + userInput);
-                    players.setGold(players.getGold() - ((5*multiplyer) * userInput));
+                    if (players.setNumRapiers(players.getNumRapiers() + userInput)){
+                        cout << "Thank you for your patronage! What else can I get for you?" << endl;
+                        cout << endl;
+                        players.setGold(players.getGold() - ((5*multiplyer) * userInput));
+                    }
+                    else{
+                        cout << "You cannot carry any more weapons. What else can I get for you?" << endl;
+                        cout << endl;
+                    }
                 }
                 else{
                     cout << "What can I get for you?" << endl;
@@ -290,10 +346,15 @@ void Merchant::openMerchant(Group &players){
                     cin >> userDecision;
                 }
                 if (userDecision == 'y'){
-                    cout << "Thank you for your patronage! What else can I get for you?" << endl;
-                    cout << endl;
-                    players.setNumBattleAxes(players.getNumBattleAxes() + userInput);
-                    players.setGold(players.getGold() - ((15*multiplyer) * userInput));
+                    if(players.setNumBattleAxes(players.getNumBattleAxes() + userInput)){
+                        cout << "Thank you for your patronage! What else can I get for you?" << endl;
+                        cout << endl;
+                        players.setGold(players.getGold() - ((15*multiplyer) * userInput));
+                    }
+                    else{
+                        cout << "You cannot carry any more weapons. What else can I get for you?" << endl;
+                        cout << endl;
+                    }
                 }
                 else{
                     cout << "What can I get for you?" << endl;
@@ -314,10 +375,11 @@ void Merchant::openMerchant(Group &players){
                     cin >> userDecision;
                 }
                 if (userDecision == 'y'){
-                    cout << "Thank you for your patronage! What else can I get for you?" << endl;
-                    cout << endl;
-                    players.setNumLongSwords(players.getNumLongSwords() + userInput);
-                    players.setGold(players.getGold() - ((50*multiplyer) * userInput));
+                    if(players.setNumLongSwords(players.getNumLongSwords() + userInput)){
+                        cout << "Thank you for your patronage! What else can I get for you?" << endl;
+                        cout << endl;
+                        players.setGold(players.getGold() - ((50*multiplyer) * userInput));
+                    }
                 }
                 else{
                     cout << "What can I get for you?" << endl;
@@ -343,10 +405,16 @@ void Merchant::openMerchant(Group &players){
                 cin >> userDecision;
             }
             if (userDecision == 'y'){
-                cout << "Thank you for your patronage! What else can I get for you?" << endl;
-                cout << endl;
-                players.setNumArmor(players.getNumArmor() + userInput);
-                players.setGold(players.getGold() - ((5*multiplyer) * userInput));
+                if (players.setNumArmor(players.getNumArmor() + userInput)){
+                    cout << "Thank you for your patronage! What else can I get for you?" << endl;
+                    cout << endl;
+                    players.setGold(players.getGold() - (5*multiplyer) * userInput);
+                }
+                else{
+                    cout << "You already have armor for everyone. What else can I get you?" << endl;
+                    cout << endl;
+                }
+                
             }
             else{
                 cout << "What can I get for you?" << endl;

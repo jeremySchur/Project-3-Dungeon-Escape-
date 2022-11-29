@@ -312,6 +312,7 @@ bool Map::removeNPC(int row, int col){
             break;
         }
     }
+    map_data_[row][col] = PARTY;
 }
 
 //returns true if a room can be removed, i.e. there is a room at (row,col)
@@ -328,6 +329,7 @@ bool Map::removeRoom(int row, int col){
             break;
         }
     }
+    map_data_[row][col] = PARTY;
 }
 
 //sets the map value at (row,col) to an explored space

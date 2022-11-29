@@ -67,6 +67,7 @@ int main(){
         if (gameMap.isNPCLocation(gameMap.getPlayerRow(), gameMap.getPlayerCol())){
             players.statusUpdate();
             gameMap.displayMap();
+            gameMap.foundNPC(gameMap.getPlayerRow(), gameMap.getPlayerCol());
 
             cout << "Select one:" << endl;
             cout << " 1. Move" << endl;
@@ -93,10 +94,42 @@ int main(){
                         players.setPlayerFullness(i, players.getPlayer(i).getFullness() - 1);
                     }
                 }
+                if (!gameMap.isExplored(gameMap.getPlayerRow(), gameMap.getPlayerCol())){
+                    players.setAngerLevel(players.getAngerLevel() + 1);
+                }
             }
             else if (userInput == 2){
-                merch.openMerchant(players);
-                merch.updateMultiplyer();
+                if (merch.openMerchant(players)){
+                    merch.updateMultiplyer();
+                }
+                else{
+                    cout << "You are not worthy of my goods. Take this!" << endl;
+                    if (monsters.fightMonster(players, players.getRoomsCleared() + 1)){
+                        players.setGold(players.getGold() + 10*(players.getRoomsCleared()+1));
+                        players.setIngredients(players.getIngredients() + 5*(players.getRoomsCleared()+1));
+                        if (rand()%10 == 0){
+                            players.setNumKeys(players.getNumKeys()+1);
+                        }
+                    }
+                    else{
+                        players.setGold(int(players.getGold()*.75));
+                        if (!(players.getIngredients() == 0)){
+                            players.setIngredients(players.getIngredients() - rand()%31);
+                        }
+                        for (int i = 1; i < players.getNumArmor(); i++){
+                            if (rand()%20 == 0){
+                                cout << "Companion " << players.getPlayer(i).getName() << " has died during combat." << endl;
+                                players.removePlayer(i);
+                            }
+                        }
+                        for (int i = players.getNumArmor(); i < players.getSize(); i++){
+                            if (rand()%10 == 0){
+                                cout << "Companion " << players.getPlayer(i).getName() << " has died during combat." << endl;
+                                players.removePlayer(i);
+                            }
+                        }
+                    }
+                }
                 gameMap.removeNPC(gameMap.getPlayerRow(), gameMap.getPlayerCol());
             }
             else if (userInput == 3){
@@ -133,6 +166,9 @@ int main(){
                     if (rand() % 5 == 0){
                         players.setPlayerFullness(i, players.getPlayer(i).getFullness() - 1);
                     }
+                }
+                if (!gameMap.isExplored(gameMap.getPlayerRow(), gameMap.getPlayerCol())){
+                    players.setAngerLevel(players.getAngerLevel() + 1);
                 }
             }
             else if (userInput == 2){
@@ -198,6 +234,9 @@ int main(){
                         players.setPlayerFullness(i, players.getPlayer(i).getFullness() - 1);
                     }
                 }
+                if (!gameMap.isExplored(gameMap.getPlayerRow(), gameMap.getPlayerCol())){
+                    players.setAngerLevel(players.getAngerLevel() + 1);
+                }
             }
             else if (userInput == 2){
                 if (players.getRoomsCleared() < 5){
@@ -223,7 +262,6 @@ int main(){
             while (userInput < 1 || userInput > 4){
                 cout << "That is not a valid input. Select one:" << endl;
                 cout << " 1. Move" << endl;
-                cout << " 2. Investigate" << endl;
                 cout << " 3. Pick a Fight" << endl;
                 cout << " 4. Cook and Eat" << endl;
                 cout << " 5. Give up" << endl;
@@ -240,6 +278,9 @@ int main(){
                     if (rand() % 5 == 0){
                         players.setPlayerFullness(i, players.getPlayer(i).getFullness() - 1);
                     }
+                }
+                if (!gameMap.isExplored(gameMap.getPlayerRow(), gameMap.getPlayerCol())){
+                    players.setAngerLevel(players.getAngerLevel() + 1);
                 }
             }
             else if (userInput == 2){
@@ -309,6 +350,9 @@ int main(){
                     if (rand() % 5 == 0){
                         players.setPlayerFullness(i, players.getPlayer(i).getFullness() - 1);
                     }
+                }
+                if (!gameMap.isExplored(gameMap.getPlayerRow(), gameMap.getPlayerCol())){
+                    players.setAngerLevel(players.getAngerLevel() + 1);
                 }
             }
             else if (userInput == 2){
@@ -410,6 +454,23 @@ int main(){
                 running = false;
                 break;
             }
+        }
+        for (int i = 0; i < players.getSize(); i++){
+            if (players.getPlayer(i).getFullness() <= 0){
+                cout << "Player " << players.getPlayer(i).getName() << " has died of stravation." << endl;
+                cout << endl;
+                players.removePlayer(i);
+            }
+        }
+        if (players.getAngerLevel() == 100){
+            cout << "Game over. There sorcerer has become irritated." << endl;
+            running = false;
+            break;
+        }
+        if (players.getSize() < 2){
+            cout << "Game over. You cannot traverse the dungeon alone." << endl;
+            running = false;
+            break;
         }
     }
 

@@ -275,7 +275,7 @@ bool Group::setNumArmor(int num_armor)
 {
     if (armor < 5)
     {
-        armor++;
+        armor = num_armor;
         return true;
     }
     else

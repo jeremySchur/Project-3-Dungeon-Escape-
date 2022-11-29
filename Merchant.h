@@ -5,6 +5,7 @@
 #ifndef MERCHANT_H
 #define MERCHANT_H
 #include <iostream>
+#include <string>
 #include "Group.h"
 using namespace std;
 
@@ -12,15 +13,16 @@ class Merchant
 {
     private:
        double multiplyer = 1.0;
+       string riddles[][2];
+       int num_riddles;
 
-    public:
+   public:
         Merchant();
         // getters
         double getMultiplyer();
         void printMenu();
         
         void updateMultiplyer();
-        void openMerchant(Group &players);
+        bool openMerchant(Group &players);
 };
 #endif
-
