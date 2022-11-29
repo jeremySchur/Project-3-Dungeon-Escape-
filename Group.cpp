@@ -38,6 +38,27 @@ int Group::getSize()
 
 void Group::removePlayer(int index)
 {
+    players.erase(players.begin() + index);
+    if (armor > players.size()){
+        armor--;
+    }
+    if (totalWeapons > players.size()){
+        if (weapons[0] > 0){
+            weapons[0]--;
+        }
+        else if (weapons[1] > 0){
+            weapons[1]--;
+        }
+        else if (weapons[2] > 0){
+            weapons[2]--;
+        }
+        else if (weapons[3] > 0){
+            weapons[3]--;
+        }
+        else if (weapons[4] > 0){
+            weapons[4]--;
+        }
+    }
 }
 
 // returns the rooms cleared
@@ -199,7 +220,7 @@ void Group::setNumCauldrons(int num_cauldrons)
 // sets the number of clubs
 bool Group::setNumClubs(int num_clubs)
 {
-    if (totalWeapons < 5)
+    if (totalWeapons < players.size())
     {
         weapons[0] = num_clubs;
         totalWeapons++;
@@ -214,7 +235,7 @@ bool Group::setNumClubs(int num_clubs)
 // sets the number of spears
 bool Group::setNumSpears(int num_spears)
 {
-    if (totalWeapons < 5)
+    if (totalWeapons < players.size())
     {
         weapons[1] = num_spears;
         totalWeapons++;
@@ -229,7 +250,7 @@ bool Group::setNumSpears(int num_spears)
 // sets the number of rapiers
 bool Group::setNumRapiers(int num_rapiers)
 {
-    if (totalWeapons < 5)
+    if (totalWeapons < players.size())
     {
         weapons[2] = num_rapiers;
         totalWeapons++;
@@ -244,7 +265,7 @@ bool Group::setNumRapiers(int num_rapiers)
 // sets the number of battle axes
 bool Group::setNumBattleAxes(int num_battleAxes)
 {
-    if (totalWeapons < 5)
+    if (totalWeapons < players.size())
     {
         weapons[3] = num_battleAxes;
         totalWeapons++;
@@ -259,7 +280,7 @@ bool Group::setNumBattleAxes(int num_battleAxes)
 // sets the number of longswords
 bool Group::setNumLongSwords(int num_longSwords)
 {
-    if (totalWeapons < 5)
+    if (totalWeapons < players.size())
     {
         weapons[4] = num_longSwords;
         totalWeapons++;
@@ -273,7 +294,7 @@ bool Group::setNumLongSwords(int num_longSwords)
 
 bool Group::setNumArmor(int num_armor)
 {
-    if (armor < 5)
+    if (armor < players.size())
     {
         armor = num_armor;
         return true;
@@ -323,11 +344,9 @@ void Group::statusUpdate()
     cout << "+-------------+" << endl;
     cout << "| PARTY       |" << endl;
     cout << "+-------------+" << endl;
-    cout << "| " << players.at(0).getName() << " | Fullness: " << players.at(0).getFullness() << endl;
-    cout << "| " << players.at(1).getName() << " | Fullness: " << players.at(1).getFullness() << endl;
-    cout << "| " << players.at(2).getName() << " | Fullness: " << players.at(2).getFullness() << endl;
-    cout << "| " << players.at(3).getName() << " | Fullness: " << players.at(3).getFullness() << endl;
-    cout << "| " << players.at(4).getName() << " | Fullness: " << players.at(4).getFullness() << endl;
+    for (int i = 0; i < players.size(); i++){
+        cout << "| " << players.at(i).getName() << " | Fullness: " << players.at(i).getFullness() << endl;
+    }
     cout << "+-------------+" << endl;
     cout << endl;
 }

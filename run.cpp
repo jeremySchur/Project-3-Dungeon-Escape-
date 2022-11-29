@@ -11,7 +11,6 @@
 #include "Group.h"
 #include "Player.h"
 #include "Merchant.h"
-#include "Item.h"
 #include "Map.h"
 #include "Monsters.h"
 using namespace std;
@@ -26,7 +25,7 @@ int main(){
     char direction, userDecision;
     string name;
     bool running = true;
-    int userInput;
+    int userInput, random;
 
     //gets input for the names of the players
     cout << "Welcome to Dungeon Escape." << endl;
@@ -113,7 +112,10 @@ int main(){
                     }
                     else{
                         players.setGold(int(players.getGold()*.75));
-                        if (!(players.getIngredients() == 0)){
+                        if (players.getIngredients() < 30){
+                            players.setIngredients(0);
+                        }
+                        else{
                             players.setIngredients(players.getIngredients() - rand()%31);
                         }
                         for (int i = 1; i < players.getNumArmor(); i++){
@@ -176,11 +178,17 @@ int main(){
                     if (monsters.fightMonster(players, players.getRoomsCleared() + 2)){
                         //HAVE A MISFORTUNE OCCUR
                         gameMap.removeRoom(gameMap.getPlayerRow(), gameMap.getPlayerCol());
+                        players.setNumKeys(players.getNumKeys() - 1);
                     }
                     else{
                         players.setGold(int(players.getGold()*.75));
-                        players.setIngredients(players.getIngredients() - rand()%31);
                         players.setNumKeys(players.getNumKeys() - 1);
+                        if (players.getIngredients() < 30){
+                            players.setIngredients(0);
+                        }
+                        else{
+                            players.setIngredients(players.getIngredients() - rand()%31);
+                        }
                         for (int i = 1; i < players.getNumArmor(); i++){
                             if (rand()%20 == 0){
                                 cout << "Companion " << players.getPlayer(i).getName() << " has died during combat." << endl;
@@ -197,8 +205,72 @@ int main(){
                     }
                 }
                 else{
-                    cout << "You do not have a key to enter the room." << endl;
-                    //MAKE THE PARTY FALL INTO A TRAP
+                    bool enter = false;
+                    random = rand()%3;
+                    cout << "You do not have a key to enter the room. Beat me in a challenge and you can enter:" << endl;
+                    cout << "Choose one:" << endl;
+                    cout << " 1. Boulder" << endl;
+                    cout << " 2. Parchment" << endl;
+                    cout << " 3. Sheers" << endl;
+                    cin >> userInput;
+                    while ((userInput-1) == random){
+                        cout << "Its a tie. Choose one:" << endl;
+                        cout << " 1. Boulder" << endl;
+                        cout << " 2. Parchment" << endl;
+                        cout << " 3. Sheers" << endl;
+                        random = rand()%3;
+                        cin >> userInput;
+                    }
+                    if (userInput-1 == 0 && random == 2){
+                        cout << "You win. Enter the room." << endl;
+                        cout << endl;
+                        enter = true;
+                    }
+                    else if (userInput-1 == 1 && random == 0){
+                        cout << "You win. Enter the room." << endl;
+                        cout << endl;
+                        enter = true;
+                    }
+                    else if (userInput-1 == 2 && random == 1){
+                        cout << "You win. Enter the room." << endl;
+                        cout << endl;
+                        enter = true;
+                    }
+                    else{
+                        random = rand()%(players.getSize()-1) + 1;
+                        cout << "Sorry. You may not enter the room. As a result of your recklessnes, companion " << players.getPlayer(random).getName() << " has died." << endl;
+                        cout << endl;
+                        players.removePlayer(random);
+                    }
+
+                    if (enter){
+                        if (monsters.fightMonster(players, players.getRoomsCleared() + 2)){
+                            //HAVE A MISFORTUNE OCCUR
+                            gameMap.removeRoom(gameMap.getPlayerRow(), gameMap.getPlayerCol());
+                        }
+                        else{
+                            players.setGold(int(players.getGold()*.75));
+                            if (players.getIngredients() < 30){
+                                players.setIngredients(0);
+                            }
+                            else{
+                                players.setIngredients(players.getIngredients() - rand()%31);
+                            }
+                            for (int i = 1; i < players.getNumArmor(); i++){
+                                if (rand()%20 == 0){
+                                    cout << "Companion " << players.getPlayer(i).getName() << " has died during combat." << endl;
+                                    players.removePlayer(i);
+                                }
+                            }
+                            for (int i = players.getNumArmor(); i < players.getSize(); i++){
+                                if (rand()%10 == 0){
+                                    cout << "Companion " << players.getPlayer(i).getName() << " has died during combat." << endl;
+                                    players.removePlayer(i);
+                                }
+                            }
+                            //HAVE A MISFORTUNE OCCUR 
+                        }
+                    }
                 }
             }
             else if (userInput == 3){
@@ -293,9 +365,12 @@ int main(){
                 }
                 else{
                     players.setGold(int(players.getGold()*.75));
-                    if (!(players.getIngredients() == 0)){
-                            players.setIngredients(players.getIngredients() - rand()%31);
-                        }
+                    if (players.getIngredients() < 30){
+                        players.setIngredients(0);
+                    }
+                    else{
+                        players.setIngredients(players.getIngredients() - rand()%31);
+                    }
                     for (int i = 1; i < players.getNumArmor(); i++){
                         if (rand()%20 == 0){
                             cout << "Companion " << players.getPlayer(i).getName() << " has died during combat." << endl;
@@ -392,7 +467,10 @@ int main(){
                     }
                     else{
                         players.setGold(int(players.getGold()*.75));
-                        if (!(players.getIngredients() == 0)){
+                        if (players.getIngredients() < 30){
+                            players.setIngredients(0);
+                        }
+                        else{
                             players.setIngredients(players.getIngredients() - rand()%31);
                         }
                         for (int i = 1; i < players.getNumArmor(); i++){
@@ -426,7 +504,12 @@ int main(){
                 }
                 else{
                     players.setGold(int(players.getGold()*.75));
-                    players.setIngredients(players.getIngredients() - rand()%31);
+                    if (players.getIngredients() < 30){
+                        players.setIngredients(0);
+                    }
+                    else{
+                        players.setIngredients(players.getIngredients() - rand()%31);
+                    }
                     for (int i = 1; i < players.getNumArmor(); i++){
                         if (rand()%20 == 0){
                             cout << "Companion " << players.getPlayer(i).getName() << " has died during combat." << endl;

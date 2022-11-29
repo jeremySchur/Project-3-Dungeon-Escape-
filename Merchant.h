@@ -6,6 +6,7 @@
 #define MERCHANT_H
 #include <iostream>
 #include <string>
+#include <vector>
 #include "Group.h"
 using namespace std;
 
@@ -13,8 +14,9 @@ class Merchant
 {
     private:
        double multiplyer = 1.0;
-       string riddles[][2];
+       vector<string> riddles;
        int num_riddles;
+       int visits = 0;
 
    public:
         Merchant();

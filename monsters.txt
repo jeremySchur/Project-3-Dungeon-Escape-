@@ -2,20 +2,70 @@ Animated Armor,1
 Bugbear,1
 Harpy,1
 Scarecrow,1
+Spiritflayer,1
+Coffinmirage,1
+Dreamsnare,1
+Rustbrood,1
+The Disfigured Thing,1
+The Dark Lich,1
+The Hairy Body,1
+The Rabid Blight Buffalo,1
+The Hidden Cave Elephant,1
+The Raging Blaze Owl,1
 Minotaur,2
 Owlbear,2
 Banshee,2
 Wereboar,2
+Cavebrute,2
+Thornhood,2
+Bladebrute,2
+Cursefiend,2
+The Grim Gnoll,2
+The Bleak Blob,2
+The Insane Abomination,2
+The Slender Ash Pig,2
+The Glacial Grieve Serpent,2
+The Black-Striped Dread Bat,2
 Giant Crocodile,3
 Troll,3
 Hobgoblin Warlord,3
 Mammoth,3
+Horrorcreep,3
+Thunderfigure,3
+Tangleface,3
+Taintpaw,3
+The Blue Howler,3
+The Black Wailer,3
+The Volatile Tree,3
+The Ruthless Mountain Vermin,3
+The Onyx Nightmare Hippo,3
+The Wild Tomb Lizard,3
 Stone Giant,4
 Night Hag,4
 Assassin,4
 Hydra,4
+Stenchling,4
+Glowbrute,4
+Fetidman,4
+Vileface,4
+The Creepy Miscreation,4
+The Cruel Bulge,4
+The Calm Blob,4
+The Silver-Striped Thunder Panther,4
+The Malevolent Torment Phoenix,4
+The Ravaging Berserker Sheep,4
 Cloud Giant,5
 Silver Dragon,5
 Vampire,5
 Lich,5
+Dreamchild,5
+Soulvine,5
+Bonefoot,5
+Rotsnare,5
+The Insidious Beast,5
+The Mad Anomaly,5
+The Infamous Creature,5
+The Agile Army Bear,5
+The Brutal Jester Yak,5
+The Scarred Cinder Serpent,5
 Sorcerer,6
