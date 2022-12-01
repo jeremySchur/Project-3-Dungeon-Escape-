@@ -80,5 +80,6 @@ class Group
         void statusUpdate();
         void cookFood();
         void saveStats();
+        void misfortune(bool room);
 };
 #endif

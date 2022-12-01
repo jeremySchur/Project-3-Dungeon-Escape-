@@ -503,3 +503,13 @@ void Group::saveStats(){
     file << endl;
     file.close();
 }
+
+void Group::misfortune(bool room){
+    srand(time(0));
+    if (room){
+        if(rand()%)
+    }
+    else{
+
+    }
+}
