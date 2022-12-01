@@ -42,21 +42,21 @@ int splitThis(string input_string, char separator, string arr[], int arr_size){
 }
 
 void sortScore(string arr[][2], int size){
-    string largest, temp;
+    string largest, temp; // declare varibles
     string largestName, tempName;
     int pos;
-    for (int i = 0; i < size - 1; i++){
+    for (int i = 0; i < size - 1; i++){ // loop thru score
         largestName = arr[i][0];
         largest = arr[i][1];
         pos = i;
-        for (int j = i+1; j < size; j++){
-            if (stoi(largest) < stoi(arr[j][1])){
-                largestName = arr[j][0];
+        for (int j = i+1; j < size; j++){ // loop again
+            if (stoi(largest) < stoi(arr[j][1])){ // check for largest
+                largestName = arr[j][0]; // fill arrays
                 largest = arr[j][1];
                 pos = j;
             }
         }
-        tempName = arr[i][0];
+        tempName = arr[i][0]; // array fill variables
         temp = arr[i][1];
         arr[i][0] = largestName;
         arr[i][1] = largest;
@@ -67,12 +67,12 @@ void sortScore(string arr[][2], int size){
 
 //reads from the scoreboard.txt file and adds the highscores to the highscore array
 Scoreboard::Scoreboard(){
-    ifstream file("scoreboard.txt");
+    ifstream file("scoreboard.txt"); // variable declarations
     string line;
     string splitLine[2];
-    for (int i = 0; i < scoreboardSize; i++){
+    for (int i = 0; i < scoreboardSize; i++){ // loop thru scorboard
         getline(file, line);
-        splitThis(line, ',', splitLine, 2);
+        splitThis(line, ',', splitLine, 2); // split at ,
         scoreboard[i][0] = splitLine[0];
         scoreboard[i][1] = splitLine[1];
     }
@@ -88,7 +88,7 @@ void Scoreboard::printScoreBoard(){
 }
 void Scoreboard::writeScoreBoard(){
     ofstream file("scoreboard.txt");
-    for (int i = 0; i < scoreboardSize; i++){
+    for (int i = 0; i < scoreboardSize; i++){ //write scoreboard to a file
         file << scoreboard[i][0] + "," + scoreboard[i][1] << endl;
     }
     file.close();
@@ -96,11 +96,11 @@ void Scoreboard::writeScoreBoard(){
 
 //adds a user and their highscore to the highscore array
 bool Scoreboard::addHighScore(string name, string highscore){
-    for (int i = 0; i < scoreboardSize; i++){
-        if (stoi(scoreboard[i][1]) < stoi(highscore)){
-            scoreboard[scoreboardSize - 1][0] = name;
-            scoreboard[scoreboardSize - 1][1] = highscore;
-            sortScore(scoreboard, scoreboardSize);
+    for (int i = 0; i < scoreboardSize; i++){ // loop thru scoreboard
+        if (stoi(scoreboard[i][1]) < stoi(highscore)){ // check condition of scoreboard to highscore
+            scoreboard[scoreboardSize - 1][0] = name; // ovverride name variable
+            scoreboard[scoreboardSize - 1][1] = highscore; // ovverride highschore variable
+            sortScore(scoreboard, scoreboardSize); // sort scoreboard ranks
             return true;
         }
     }
