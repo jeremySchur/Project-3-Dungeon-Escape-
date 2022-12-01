@@ -70,7 +70,8 @@ void Merchant::printMenu(){
 
 
 bool Merchant::openMerchant(Group &players){
-    srand(time(0));
+    srand(time(0)); //rand value
+    // variables
     bool open = true, access = true;
     int userInput;
     char userDecision;
@@ -79,19 +80,20 @@ bool Merchant::openMerchant(Group &players){
     string answer;
     splitMe(riddles.at(random), '~', riddle, 2);
 
+    // print statements prompt user
     cout << "If you're looking to get supplies, you've come to the right place." << endl;
     cout << "I would be happy to part with some of my wares...for the proper price!" << endl;
     if (!(visits == 0)){
         cout << "To make sure you aren't a monster. I need you to solve this simple riddle:" << endl;
         cout << endl;
         cout << riddle[0] << endl;
-        cin >> answer;
-        if (!(answer == riddle[1])){
+        cin >> answer; // stoer input
+        if (!(answer == riddle[1])){ // check input / riddle / answer
             access = false;
         }
     }
 
-    if (access){
+    if (access){ // in game UI 
         while(open){
             cout << "+-------------+" << endl;
             cout << "| INVENTORY   |" << endl;
@@ -115,17 +117,17 @@ bool Merchant::openMerchant(Group &players){
 
             switch (userInput)
             {
-            case 1:
+            case 1: // if user picks ingredients
                 cout << "How many kg of ingredients do you need [1 Gold/kg]? (Enter a positive mulitple of 5, or 0 to cancel) " << endl;
                 cin >> userInput;
-                while (userInput > players.getGold() || userInput%5 != 0){
+                while (userInput > players.getGold() || userInput%5 != 0){ // invalid input
                     cout << "That is not a valid input. How many kg of ingredients do you need [1 Gold/kg]? (Enter a positive mulitple of 5, or 0 to cancel)" << endl;
                     cin >> userInput;
                 }
                 if (userInput == 0){
                     continue;
                 }
-                else{
+                else{ // user buys stuff
                     cout << "You want to buy " << userInput << " kg of ingredients for " << (1*multiplyer) * userInput << " Gold? (y/n)" << endl;
                     cin >> userDecision;
                     while (userDecision != 'y' && userDecision != 'n'){
@@ -140,7 +142,7 @@ bool Merchant::openMerchant(Group &players){
                     cout << endl;
                 }
                 break;
-            case 2:
+            case 2: // if user picks cookware
                 cout << "I have a several types of cookware, which one would you like?" << endl;
                 cout << "Each type has a different probability of breaking when used, marked with (XX%)." << endl;
                 cout << endl;
@@ -151,7 +153,7 @@ bool Merchant::openMerchant(Group &players){
                 cout << " 4. Cancel" << endl;
                 cin >> userInput;
                 while (userInput < 1 || userInput > 4){
-                    cout << "That is not a valid input. Choose one of the following:" << endl;
+                    cout << "That is not a valid input. Choose one of the following:" << endl; // invalid
                     cout << endl;
                     cout << " 1. (25%) Ceramic Pot [2 Gold]" << endl;
                     cout << " 2. (10%) Frying Pan [10 Gold]" << endl;
@@ -159,21 +161,21 @@ bool Merchant::openMerchant(Group &players){
                     cout << " 4. Cancel" << endl;
                     cin >> userInput;
                 }
-                if (userInput == 1){
-                    cout << "How many would you like? (Enter a positive integer, or 0 to cancel)" << endl;
+                if (userInput == 1){ // ceramic pot chosen
+                    cout << "How many would you like? (Enter a positive integer, or 0 to cancel)" << endl; //ask how many
                     cin >> userInput;
                     while ((2*multiplyer) * userInput > players.getGold() || userInput < 0){
-                        cout << "You are trying to buy an invalid amount. How many would you like? (Enter a positive integer, or 0 to cancel)" << endl;
+                        cout << "You are trying to buy an invalid amount. How many would you like? (Enter a positive integer, or 0 to cancel)" << endl; //invalid
                         cin >> userInput;
                     }
-                    cout << "You want to buy " << userInput << " Ceramic Pot(s) for " << (2*multiplyer) * userInput << " Gold? (y/n)" << endl;
+                    cout << "You want to buy " << userInput << " Ceramic Pot(s) for " << (2*multiplyer) * userInput << " Gold? (y/n)" << endl; //confirm input
                     cin >> userDecision;
                     while (userDecision != 'y' && userDecision != 'n'){
-                        cout << "That is not a valid input. Please enter (y/n)." << endl;
+                        cout << "That is not a valid input. Please enter (y/n)." << endl; //invalid
                         cin >> userDecision;
                     }
-                    if (userDecision == 'y'){
-                        cout << "Thank you for your patronage! What else can I get for you?" << endl;
+                    if (userDecision == 'y'){//yes input
+                        cout << "Thank you for your patronage! What else can I get for you?" << endl; //success
                         cout << endl;
                         players.setNumPots(players.getNumPots() + userInput);
                         players.setGold(players.getGold() - ((2*multiplyer) * userInput));
@@ -183,20 +185,20 @@ bool Merchant::openMerchant(Group &players){
                         cout << endl;
                     }
                 }
-                else if (userInput == 2){
-                    cout << "How many would you like? (Enter a positive integer, or 0 to cancel)" << endl;
+                else if (userInput == 2){ // frying pan chosen
+                    cout << "How many would you like? (Enter a positive integer, or 0 to cancel)" << endl; //ask how many
                     cin >> userInput;
                     while ((10*multiplyer) * userInput > players.getGold() || userInput < 0){
-                        cout << "You are trying to buy an invalid amount. How many would you like? (Enter a positive integer, or 0 to cancel)" << endl;
+                        cout << "You are trying to buy an invalid amount. How many would you like? (Enter a positive integer, or 0 to cancel)" << endl; //invalid
                         cin >> userInput;
                     }
-                    cout << "You want to buy " << userInput << " Frying Pan(s) for " << (10*multiplyer) * userInput << " Gold? (y/n)" << endl;
+                    cout << "You want to buy " << userInput << " Frying Pan(s) for " << (10*multiplyer) * userInput << " Gold? (y/n)" << endl; //confirm input
                     cin >> userDecision;
-                    while (userDecision != 'y' && userDecision != 'n'){
+                    while (userDecision != 'y' && userDecision != 'n'){ //if invalid
                         cout << "That is not a valid input. Please enter (y/n)." << endl;
                         cin >> userDecision;
                     }
-                    if (userDecision == 'y'){
+                    if (userDecision == 'y'){ //if yes
                         cout << "Thank you for your patronage! What else can I get for you?" << endl;
                         cout << endl;
                         players.setNumPans(players.getNumPans() + userInput);
@@ -207,21 +209,21 @@ bool Merchant::openMerchant(Group &players){
                         cout << endl;
                     }
                 }
-                else if (userInput == 3){
-                    cout << "How many would you like? (Enter a positive integer, or 0 to cancel)" << endl;
+                else if (userInput == 3){ // cauldron chosen
+                    cout << "How many would you like? (Enter a positive integer, or 0 to cancel)" << endl; //ask how many
                     cin >> userInput;
                     while ((20*multiplyer) * userInput > players.getGold() || userInput < 0){
-                        cout << "You are trying to buy an invalid amount. How many would you like? (Enter a positive integer, or 0 to cancel)" << endl;
+                        cout << "You are trying to buy an invalid amount. How many would you like? (Enter a positive integer, or 0 to cancel)" << endl; //invalid
                         cin >> userInput;
                     }
-                    cout << "You want to buy " << userInput << " Cauldron(s) for " << (20*multiplyer) * userInput << " Gold? (y/n)" << endl;
+                    cout << "You want to buy " << userInput << " Cauldron(s) for " << (20*multiplyer) * userInput << " Gold? (y/n)" << endl; //confrim input
                     cin >> userDecision;
                     while (userDecision != 'y' && userDecision != 'n'){
-                        cout << "That is not a valid input. Please enter (y/n)." << endl;
-                        cin >> userDecision;
+                        cout << "That is not a valid input. Please enter (y/n)." << endl; //invalid input
+                        cin >> userDecision; 
                     }
                     if (userDecision == 'y'){
-                        cout << "Thank you for your patronage! What else can I get for you?" << endl;
+                        cout << "Thank you for your patronage! What else can I get for you?" << endl; //confirm
                         cout << endl;
                         players.setNumCauldrons(players.getNumCauldrons() + userInput);
                         players.setGold(players.getGold() - ((20*multiplyer) * userInput));
@@ -231,12 +233,12 @@ bool Merchant::openMerchant(Group &players){
                         cout << endl;
                     }
                 }
-                else if (userInput == 4){
+                else if (userInput == 4){ //if cancel chosen
                     cout << "What can I get for you?" << endl;
                     cout << endl;
                 }
                 break;
-            case 3:
+            case 3: // if user pick weapons
                 cout << "I have a plentiful collection of weapons to choose from, what would you like?" << endl;
                 cout << "Note that some of them provide you a special bonus in combat, marked by a (+X)." << endl;
                 cout << endl;
@@ -260,27 +262,27 @@ bool Merchant::openMerchant(Group &players){
                     cout << " 6. Cancel" << endl;
                     cin >> userInput;
                 }
-                if (userInput == 1){
-                    cout << "How many would you like? (Enter a positive integer, or 0 to cancel)" << endl;
+                if (userInput == 1){//stone club chosen
+                    cout << "How many would you like? (Enter a positive integer, or 0 to cancel)" << endl; //ask how many
                     cin >> userInput;
                     while ((2*multiplyer) * userInput > players.getGold() || userInput < 0){
-                        cout << "You are trying to buy an invalid amount. How many would you like? (Enter a positive integer, or 0 to cancel)" << endl;
+                        cout << "You are trying to buy an invalid amount. How many would you like? (Enter a positive integer, or 0 to cancel)" << endl; //invalid input
                         cin >> userInput;
                     }
-                    cout << "You want to buy " << userInput << " Stone Club(s) for " << (2*multiplyer) * userInput << " Gold? (y/n)" << endl;
+                    cout << "You want to buy " << userInput << " Stone Club(s) for " << (2*multiplyer) * userInput << " Gold? (y/n)" << endl; // confrim input
                     cin >> userDecision;
-                    while (userDecision != 'y' && userDecision != 'n'){
-                        cout << "That is not a valid input. Please enter (y/n)." << endl;
+                    while (userDecision != 'y' && userDecision != 'n'){ // if not yes or no
+                        cout << "That is not a valid input. Please enter (y/n)." << endl; //invalid
                         cin >> userDecision;
                     }
                     if (userDecision == 'y'){
                         if (players.setNumClubs(players.getNumClubs() + userInput)){
-                            cout << "Thank you for your patronage! What else can I get for you?" << endl;
+                            cout << "Thank you for your patronage! What else can I get for you?" << endl; // confirm purchase
                             cout << endl;
                             players.setGold(players.getGold() - ((2*multiplyer) * userInput));
                         }
                         else{
-                            cout << "You cannot carry any more weapons. What else can I get for you?" << endl;
+                            cout << "You cannot carry any more weapons. What else can I get for you?" << endl; //invlaid
                             cout << endl;
                         }
                     }
@@ -289,27 +291,27 @@ bool Merchant::openMerchant(Group &players){
                         cout << endl;
                     }
                 }
-                else if (userInput == 2){
-                    cout << "How many would you like? (Enter a positive integer, or 0 to cancel)" << endl;
+                else if (userInput == 2){ // iron spear chosen
+                    cout << "How many would you like? (Enter a positive integer, or 0 to cancel)" << endl; // how many input
                     cin >> userInput;
                     while ((2*multiplyer) * userInput > players.getGold() || userInput < 0){
-                        cout << "You are trying to buy an invalid amount. How many would you like? (Enter a positive integer, or 0 to cancel)" << endl;
+                        cout << "You are trying to buy an invalid amount. How many would you like? (Enter a positive integer, or 0 to cancel)" << endl; // invalid
                         cin >> userInput;
                     }
-                    cout << "You want to buy " << userInput << " Iron Spear(s) for " << (2*multiplyer) * userInput << " Gold? (y/n)" << endl;
+                    cout << "You want to buy " << userInput << " Iron Spear(s) for " << (2*multiplyer) * userInput << " Gold? (y/n)" << endl; // confirm user
                     cin >> userDecision;
                     while (userDecision != 'y' && userDecision != 'n'){
-                        cout << "That is not a valid input. Please enter (y/n)." << endl;
+                        cout << "That is not a valid input. Please enter (y/n)." << endl; //invalid
                         cin >> userDecision;
                     }
                     if (userDecision == 'y'){
                         if (players.setNumSpears(players.getNumSpears() + userInput)){
-                            cout << "Thank you for your patronage! What else can I get for you?" << endl;
+                            cout << "Thank you for your patronage! What else can I get for you?" << endl; //success
                             cout << endl;
                             players.setGold(players.getGold() - ((2*multiplyer) * userInput));
                         }
                         else{
-                            cout << "You cannot carry any more weapons. What else can I get for you?" << endl;
+                            cout << "You cannot carry any more weapons. What else can I get for you?" << endl; // invalid
                             cout << endl;
                         }
                     }
@@ -318,28 +320,28 @@ bool Merchant::openMerchant(Group &players){
                         cout << endl;
                     }
                 }
-                else if (userInput == 3){
-                    cout << "How many would you like? (Enter a positive integer, or 0 to cancel)" << endl;
+                else if (userInput == 3){ //mythril rapier hcosen
+                    cout << "How many would you like? (Enter a positive integer, or 0 to cancel)" << endl; //user inputs how many
                     cin >> userInput;
                     while ((5*multiplyer) * userInput > players.getGold() || userInput < 0){
-                        cout << "You are trying to buy an invalid amount. How many would you like? (Enter a positive integer, or 0 to cancel)" << endl;
+                        cout << "You are trying to buy an invalid amount. How many would you like? (Enter a positive integer, or 0 to cancel)" << endl; //invalid
                         cin >> userInput;
                     }
-                    cout << "You want to buy " << userInput << " (+1) Mythril Rapier(s) for " << (5*multiplyer) * userInput << " Gold? (y/n)" << endl;
+                    cout << "You want to buy " << userInput << " (+1) Mythril Rapier(s) for " << (5*multiplyer) * userInput << " Gold? (y/n)" << endl; //confirm puurchase
                     cin >> userDecision;
                     while (userDecision != 'y' && userDecision != 'n'){
-                        cout << "That is not a valid input. Please enter (y/n)." << endl;
+                        cout << "That is not a valid input. Please enter (y/n)." << endl; //invalid
                         cin >> userDecision;
                     }
-                    if (userDecision == 'y'){
+                    if (userDecision == 'y'){ // if yes
                         if (players.setNumRapiers(players.getNumRapiers() + userInput)){
-                            cout << "Thank you for your patronage! What else can I get for you?" << endl;
+                            cout << "Thank you for your patronage! What else can I get for you?" << endl; //confirmed
                             cout << endl;
                             players.setGold(players.getGold() - ((5*multiplyer) * userInput));
                         }
                         else{
-                            cout << "You cannot carry any more weapons. What else can I get for you?" << endl;
-                            cout << endl;
+                            cout << "You cannot carry any more weapons. What else can I get for you?" << endl; // invalid
+                            cout << endl; 
                         }
                     }
                     else{
@@ -347,27 +349,27 @@ bool Merchant::openMerchant(Group &players){
                         cout << endl;
                     }
                 }
-                else if (userInput == 4){
-                    cout << "How many would you like? (Enter a positive integer, or 0 to cancel)" << endl;
+                else if (userInput == 4){ // flaming battle axe chosen
+                    cout << "How many would you like? (Enter a positive integer, or 0 to cancel)" << endl; // how many
                     cin >> userInput;
                     while ((15*multiplyer) * userInput > players.getGold() || userInput < 0){
-                        cout << "You are trying to buy an invalid amount. How many would you like? (Enter a positive integer, or 0 to cancel)" << endl;
+                        cout << "You are trying to buy an invalid amount. How many would you like? (Enter a positive integer, or 0 to cancel)" << endl; //invalid
                         cin >> userInput;
                     }
-                    cout << "You want to buy " << userInput << " (+2) Flaming Battle-Axe(s) for " << (15*multiplyer) * userInput << " Gold? (y/n)" << endl;
+                    cout << "You want to buy " << userInput << " (+2) Flaming Battle-Axe(s) for " << (15*multiplyer) * userInput << " Gold? (y/n)" << endl; //confirm input
                     cin >> userDecision;
                     while (userDecision != 'y' && userDecision != 'n'){
-                        cout << "That is not a valid input. Please enter (y/n)." << endl;
+                        cout << "That is not a valid input. Please enter (y/n)." << endl; //invalid
                         cin >> userDecision;
                     }
                     if (userDecision == 'y'){
                         if(players.setNumBattleAxes(players.getNumBattleAxes() + userInput)){
-                            cout << "Thank you for your patronage! What else can I get for you?" << endl;
+                            cout << "Thank you for your patronage! What else can I get for you?" << endl; // succes purchase
                             cout << endl;
                             players.setGold(players.getGold() - ((15*multiplyer) * userInput));
                         }
                         else{
-                            cout << "You cannot carry any more weapons. What else can I get for you?" << endl;
+                            cout << "You cannot carry any more weapons. What else can I get for you?" << endl; // invalid
                             cout << endl;
                         }
                     }
@@ -376,20 +378,20 @@ bool Merchant::openMerchant(Group &players){
                         cout << endl;
                     }
                 }
-                else if (userInput == 5){
-                    cout << "How many would you like? (Enter a positive integer, or 0 to cancel)" << endl;
+                else if (userInput == 5){ // longsword chosen
+                    cout << "How many would you like? (Enter a positive integer, or 0 to cancel)" << endl; // how many
                     cin >> userInput;
                     while ((50*multiplyer) * userInput > players.getGold() || userInput < 0){
-                        cout << "You are trying to buy an invalid amount. How many would you like? (Enter a positive integer, or 0 to cancel)" << endl;
+                        cout << "You are trying to buy an invalid amount. How many would you like? (Enter a positive integer, or 0 to cancel)" << endl; // invaild
                         cin >> userInput;
                     }
-                    cout << "You want to buy " << userInput << " (+3) Vorpal Longsword(s) for " << (50*multiplyer) * userInput << " Gold? (y/n)" << endl;
+                    cout << "You want to buy " << userInput << " (+3) Vorpal Longsword(s) for " << (50*multiplyer) * userInput << " Gold? (y/n)" << endl; // confirm buy
                     cin >> userDecision;
                     while (userDecision != 'y' && userDecision != 'n'){
-                        cout << "That is not a valid input. Please enter (y/n)." << endl;
+                        cout << "That is not a valid input. Please enter (y/n)." << endl; // invalid
                         cin >> userDecision;
                     }
-                    if (userDecision == 'y'){
+                    if (userDecision == 'y'){ // user yes
                         if(players.setNumLongSwords(players.getNumLongSwords() + userInput)){
                             cout << "Thank you for your patronage! What else can I get for you?" << endl;
                             cout << endl;
@@ -401,12 +403,12 @@ bool Merchant::openMerchant(Group &players){
                         cout << endl;
                     }
                 }
-                else if (userInput == 6){
+                else if (userInput == 6){ // cancel chosen
                     cout << "What can I get for you?" << endl;
                     cout << endl;
                 }
                 break;
-            case 4:
+            case 4: // if user picks armor
                 cout << "How many suits of armor can I get you? (Enter a positive integer, or 0 to cancel)" << endl;
                 cin >> userInput;
                 while ((5*multiplyer) * userInput > players.getGold() || userInput < 0){
@@ -436,7 +438,7 @@ bool Merchant::openMerchant(Group &players){
                     cout << endl;
                 }
                 break;
-            case 5:
+            case 5: // if user picks sell
                 cout << "I am more than happy to take some treasure off your hands. What can I buy from you?" << endl;
                 cout << endl;
                 cout << "Choose one of the following:" << endl;
@@ -599,7 +601,7 @@ bool Merchant::openMerchant(Group &players){
                 } 
                 cout << endl;        
                 break;
-            default:
+            default: // default return
                 cout << "That is not a valid option." << endl;
                 cout << endl;
                 break;

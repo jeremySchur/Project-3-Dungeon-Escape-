@@ -326,7 +326,7 @@ void Group::setNumGoblet(int num_goblet)
 }
 
 void Group::statusUpdate()
-{
+{   // in game user UI display
     cout << endl;
     cout << "+-------------+" << endl;
     cout << "| STATUS      |" << endl;
@@ -353,8 +353,8 @@ void Group::statusUpdate()
 
 void Group::cookFood()
 {
-    int userInput;
-
+    int userInput; 
+    // in game user UI display
     cout << "What cookware would you like to use? ";
     cout << "Each type has a different probability of breaking when used, marked with (XX%)." << endl;
     cout << endl;
@@ -375,12 +375,12 @@ void Group::cookFood()
     }
     if (userInput == 1)
     {
-        if (cookware[0] == 0)
+        if (cookware[0] == 0) // if no pots
         {
             cout << "You do not have any ceramic pots to cook with." << endl;
             cout << endl;
         }
-        else
+        else // ask ingredients
         {
             cout << "How much ingredients would you like to cook? (Enter a positive multiple of 5)" << endl;
             cin >> userInput;
@@ -390,13 +390,13 @@ void Group::cookFood()
                 cin >> userInput;
             }
             ingredients -= userInput;
-            if (rand() % 4 == 0)
+            if (rand() % 4 == 0) // cermaic pot break
             {
                 cout << "Whoops. It looks like your Ceramic Pot has broken." << endl;
                 cout << endl;
                 cookware[0] -= 1;
             }
-            else
+            else // succesful cook
             {
                 cout << "Your meal was successfully cooked!" << endl;
                 cout << endl;
@@ -409,12 +409,12 @@ void Group::cookFood()
     }
     else if (userInput == 2)
     {
-        if (cookware[1] == 0)
+        if (cookware[1] == 0) // if no pans
         {
             cout << "You do not have any frying pans to cook with." << endl;
             cout << endl;
         }
-        else
+        else // ask for ingredients
         {
             cout << "How much ingredients would you like to cook? (Enter a positive multiple of 5)" << endl;
             cin >> userInput;
@@ -424,13 +424,13 @@ void Group::cookFood()
                 cin >> userInput;
             }
             ingredients -= userInput;
-            if (rand() % 10 == 0)
+            if (rand() % 10 == 0) // cermaic pot break
             {
                 cout << "Whoops. It looks like your Ceramic Pot has broken." << endl;
                 cout << endl;
                 cookware[1] -= 1;
             }
-            else
+            else // succesful cook
             {
                 cout << "Your meal was successfully cooked!" << endl;
                 cout << endl;
@@ -443,14 +443,14 @@ void Group::cookFood()
     }
     else if (userInput == 3)
     {
-        if (cookware[2] == 0)
+        if (cookware[2] == 0) // check cookware
         {
-            cout << "You do not have any cauldrons to cook with." << endl;
+            cout << "You do not have any cauldrons to cook with." << endl; 
             cout << endl;
         }
         else
         {
-            cout << "How much ingredients would you like to cook? (Enter a positive multiple of 5)" << endl;
+            cout << "How much ingredients would you like to cook? (Enter a positive multiple of 5)" << endl; // ask ingredidents
             cin >> userInput;
             while ((userInput % 5) != 0 || userInput > ingredients || userInput < 0)
             {
@@ -458,13 +458,13 @@ void Group::cookFood()
                 cin >> userInput;
             }
             ingredients -= userInput;
-            if (rand() % 50 == 0)
+            if (rand() % 50 == 0) // cauldron break
             {
                 cout << "Whoops. It looks like your Cauldron has broken." << endl;
                 cout << endl;
                 cookware[2] -= 1;
             }
-            else
+            else // successful cook
             {
                 cout << "Your meal was successfully cooked!" << endl;
                 cout << endl;
@@ -477,7 +477,7 @@ void Group::cookFood()
     }
 }
 
-void Group::saveStats(){
+void Group::saveStats(){ //UI for user to see ingame
     ofstream file("results.txt");
     file << endl;
     file << "+-------------+" << endl;
