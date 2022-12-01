@@ -1,0 +1,24 @@
+
++-------------+
+| STATUS      |
++-------------+
+| Rooms Cleared: 0 | Keys: 0 | Anger Level: 0
++-------------+
+| INVENTORY   |
++-------------+
+| Gold        | 100
+| Ingredients | 0 kg
+| Cookware    | P: 0 | F: 0 | C: 0
+| Weapons     | C: 0| S: 0 | R: 0 | B: 0 | L: 0
+| Armor       | 0
+| Treasures   | R: 0 | N: 0 | B: 0 | C: 0 | G: 0
++-------------+
+| PARTY       |
++-------------+
+| Anthony | Fullness: 50
+| a | Fullness: 50
+| s | Fullness: 50
+| d | Fullness: 50
+| f | Fullness: 50
++-------------+
+

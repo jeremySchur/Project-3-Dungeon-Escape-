@@ -476,3 +476,30 @@ void Group::cookFood()
         }
     }
 }
+
+void Group::saveStats(){
+    ofstream file("results.txt");
+    file << endl;
+    file << "+-------------+" << endl;
+    file << "| STATUS      |" << endl;
+    file << "+-------------+" << endl;
+    file << "| Rooms Cleared: " << rooms_cleared << " | Keys: " << num_keys << " | Anger Level: " << anger_level << endl;
+    file << "+-------------+" << endl;
+    file << "| INVENTORY   |" << endl;
+    file << "+-------------+" << endl;
+    file << "| Gold        | " << gold << endl;
+    file << "| Ingredients | " << ingredients << " kg" << endl;
+    file << "| Cookware    | P: " << cookware[0] << " | F: " << cookware[1] << " | C: " << cookware[2] << endl;
+    file << "| Weapons     | C: " << weapons[0] << "| S: " << weapons[1] << " | R: " << weapons[2] << " | B: " << weapons[3] << " | L: " << weapons[4] << endl;
+    file << "| Armor       | " << armor << endl;
+    file << "| Treasures   | R: " << treasures[0] << " | N: " << treasures[1] << " | B: " << treasures[2] << " | C: " << treasures[3] << " | G: " << treasures[4] << endl;
+    file << "+-------------+" << endl;
+    file << "| PARTY       |" << endl;
+    file << "+-------------+" << endl;
+    for (int i = 0; i < players.size(); i++){
+        file << "| " << players.at(i).getName() << " | Fullness: " << players.at(i).getFullness() << endl;
+    }
+    file << "+-------------+" << endl;
+    file << endl;
+    file.close();
+}

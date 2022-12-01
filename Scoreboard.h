@@ -13,7 +13,7 @@ class Scoreboard
     //private members
     private:
         string scoreboard[5][2];
-        int currentScore;
+        int currentScore = 0, scoreboardSize = 5;
     //public members
     public:
     Scoreboard();
@@ -22,6 +22,7 @@ class Scoreboard
     int getCurrentScore();
     void setCurrentScore(int score);
     void sortScoreBoard();
+    void writeScoreBoard();
    
 };
 #endif

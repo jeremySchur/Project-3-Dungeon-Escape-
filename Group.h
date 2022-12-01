@@ -79,5 +79,6 @@ class Group
 
         void statusUpdate();
         void cookFood();
+        void saveStats();
 };
 #endif

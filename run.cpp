@@ -13,6 +13,7 @@
 #include "Merchant.h"
 #include "Map.h"
 #include "Monsters.h"
+#include "Scoreboard.h"
 using namespace std;
 
 //main for the entire game run
@@ -22,6 +23,7 @@ int main(){
     Map gameMap = Map();
     Monsters monsters("monsters.txt");
     Merchant merch;
+    Scoreboard playerHighScores;
     char direction, userDecision;
     string name;
     bool running = true;
@@ -45,6 +47,9 @@ int main(){
     cin >> name;
     players.addPlayer(Player(name));
 
+    cout << endl;
+    cout << "These are the current highscores for Dungeon Escape." << endl;
+    playerHighScores.printScoreBoard();
     //intro to merchant 
     cout << endl;
     cout << "Between the 5 of you, you have 100 gold pieces." << endl;
@@ -99,18 +104,24 @@ int main(){
             }
             else if (userInput == 2){
                 if (merch.openMerchant(players)){
+                    playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + 10);
                     merch.updateMultiplyer();
                 }
                 else{
                     cout << "You are not worthy of my goods. Take this!" << endl;
                     if (monsters.fightMonster(players, players.getRoomsCleared() + 1)){
+                        cout << "You were victorious in your battle." << endl;
+                        cout << endl;
                         players.setGold(players.getGold() + 10*(players.getRoomsCleared()+1));
                         players.setIngredients(players.getIngredients() + 5*(players.getRoomsCleared()+1));
+                        playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + 10);
                         if (rand()%10 == 0){
                             players.setNumKeys(players.getNumKeys()+1);
                         }
                     }
                     else{
+                        cout << "You lost your battle." << endl;
+                        cout << endl;
                         players.setGold(int(players.getGold()*.75));
                         if (players.getIngredients() < 30){
                             players.setIngredients(0);
@@ -136,6 +147,16 @@ int main(){
             }
             else if (userInput == 3){
                 cout << "Game over. You gave up." << endl;
+                cout << endl;
+                playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + players.getGold() + 100*players.getSize() + 10*players.getNumKeys() + 5*players.getNumArmor() + players.getNumClubs() + players.getNumSpears() + 2*players.getNumRapiers() + 3*players.getNumBattleAxes() + 4*players.getNumLongSwords() + players.getNumPots() + players.getNumPans() + players.getNumCauldrons());
+                if (playerHighScores.addHighScore(players.getPlayer(0).getName(), to_string(playerHighScores.getCurrentScore()))){
+                    cout << "YOU BEAT A HIGHSCORE!!!" << endl;
+                    playerHighScores.printScoreBoard();
+                }
+                else{
+                    cout << "No highscores were beat." << endl;
+                    playerHighScores.printScoreBoard();
+                }
                 running = false;
                 break;
             }
@@ -176,11 +197,15 @@ int main(){
             else if (userInput == 2){
                 if (players.getNumKeys() > 0){
                     if (monsters.fightMonster(players, players.getRoomsCleared() + 2)){
-                        //HAVE A MISFORTUNE OCCUR
+                        cout << "You were victorious in your battle." << endl;
+                        cout << endl;
                         gameMap.removeRoom(gameMap.getPlayerRow(), gameMap.getPlayerCol());
                         players.setNumKeys(players.getNumKeys() - 1);
+                        playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + 100);
                     }
                     else{
+                        cout << "You lost your battle." << endl;
+                        cout << endl;
                         players.setGold(int(players.getGold()*.75));
                         players.setNumKeys(players.getNumKeys() - 1);
                         if (players.getIngredients() < 30){
@@ -245,10 +270,14 @@ int main(){
 
                     if (enter){
                         if (monsters.fightMonster(players, players.getRoomsCleared() + 2)){
-                            //HAVE A MISFORTUNE OCCUR
+                            cout << "You were victorious in your battle." << endl;
+                            cout << endl;
                             gameMap.removeRoom(gameMap.getPlayerRow(), gameMap.getPlayerCol());
+                            playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + 100);
                         }
                         else{
+                            cout << "You lost your battle." << endl;
+                            cout << endl;
                             players.setGold(int(players.getGold()*.75));
                             if (players.getIngredients() < 30){
                                 players.setIngredients(0);
@@ -275,6 +304,16 @@ int main(){
             }
             else if (userInput == 3){
                 cout << "Game over. You gave up." << endl;
+                cout << endl;
+                playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + players.getGold() + 100*players.getSize() + 10*players.getNumKeys() + 5*players.getNumArmor() + players.getNumClubs() + players.getNumSpears() + 2*players.getNumRapiers() + 3*players.getNumBattleAxes() + 4*players.getNumLongSwords() + players.getNumPots() + players.getNumPans() + players.getNumCauldrons());
+                if (playerHighScores.addHighScore(players.getPlayer(0).getName(), to_string(playerHighScores.getCurrentScore()))){
+                    cout << "YOU BEAT A HIGHSCORE!!!" << endl;
+                    playerHighScores.printScoreBoard();
+                }
+                else{
+                    cout << "No highscores were beat." << endl;
+                    playerHighScores.printScoreBoard();
+                }
                 running = false;
                 break;
             }
@@ -316,6 +355,17 @@ int main(){
                 }
                 else{
                     cout << "CONGRATS, YOU BEAT DUNGEON ESCAPE!!!" << endl;
+                    cout << endl;
+                    playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + 5000);
+                    playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + players.getGold() + 100*players.getSize() + 10*players.getNumKeys() + 5*players.getNumArmor() + players.getNumClubs() + players.getNumSpears() + 2*players.getNumRapiers() + 3*players.getNumBattleAxes() + 4*players.getNumLongSwords() + players.getNumPots() + players.getNumPans() + players.getNumCauldrons());
+                    if (playerHighScores.addHighScore(players.getPlayer(0).getName(), to_string(playerHighScores.getCurrentScore()))){
+                        cout << "YOU BEAT A HIGHSCORE!!!" << endl;
+                        playerHighScores.printScoreBoard();
+                    }
+                    else{
+                        cout << "No highscores were beat." << endl;
+                        playerHighScores.printScoreBoard();
+                    }
                     running = false;
                     break;
                 }
@@ -357,13 +407,18 @@ int main(){
             }
             else if (userInput == 2){
                 if (monsters.fightMonster(players, players.getRoomsCleared() + 1)){
+                    cout << "You were victorious in your battle." << endl;
+                    cout << endl;
                     players.setGold(players.getGold() + 10*(players.getRoomsCleared()+1));
                     players.setIngredients(players.getIngredients() + 5*(players.getRoomsCleared()+1));
+                    playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + 10);
                     if (rand()%10 == 0){
                         players.setNumKeys(players.getNumKeys()+1);
                     }
                 }
                 else{
+                    cout << "You lost your battle." << endl;
+                    cout << endl;
                     players.setGold(int(players.getGold()*.75));
                     if (players.getIngredients() < 30){
                         players.setIngredients(0);
@@ -390,6 +445,16 @@ int main(){
             }
             else if (userInput == 4){
                 cout << "Game over. You gave up." << endl;
+                cout << endl;
+                playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + players.getGold() + 100*players.getSize() + 10*players.getNumKeys() + 5*players.getNumArmor() + players.getNumClubs() + players.getNumSpears() + 2*players.getNumRapiers() + 3*players.getNumBattleAxes() + 4*players.getNumLongSwords() + players.getNumPots() + players.getNumPans() + players.getNumCauldrons());
+                if (playerHighScores.addHighScore(players.getPlayer(0).getName(), to_string(playerHighScores.getCurrentScore()))){
+                    cout << "YOU BEAT A HIGHSCORE!!!" << endl;
+                    playerHighScores.printScoreBoard();
+                }
+                else{
+                    cout << "No highscores were beat." << endl;
+                    playerHighScores.printScoreBoard();
+                }
                 running = false;
                 break;
             }
@@ -431,6 +496,7 @@ int main(){
                 }
             }
             else if (userInput == 2){
+                playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + 1);
                 if (rand()%10 == 0){
                     cout << "YOU FOUND A KEY!!!" << endl;
                     players.setNumKeys(players.getNumKeys()+1);
@@ -459,13 +525,18 @@ int main(){
                 }
                 if (rand()%5 == 0){
                     if (monsters.fightMonster(players, players.getRoomsCleared() + 1)){
+                        cout << "You were victorious in your battle." << endl;
+                        cout << endl;
                         players.setGold(players.getGold() + 10*(players.getRoomsCleared()+1));
                         players.setIngredients(players.getIngredients() + 5*(players.getRoomsCleared()+1));
+                        playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + 10);
                         if (rand()%10 == 0){
                             players.setNumKeys(players.getNumKeys()+1);
                         }
                     }
                     else{
+                        cout << "You were victorious in your battle." << endl;
+                        cout << endl;
                         players.setGold(int(players.getGold()*.75));
                         if (players.getIngredients() < 30){
                             players.setIngredients(0);
@@ -496,13 +567,18 @@ int main(){
             }
             else if (userInput == 3){
                 if (monsters.fightMonster(players, players.getRoomsCleared() + 1)){
+                    cout << "You were victorious in your battle." << endl;
+                    cout << endl;
                     players.setGold(players.getGold() + 10*(players.getRoomsCleared()+1));
                     players.setIngredients(players.getIngredients() + 5*(players.getRoomsCleared()+1));
+                    playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + 10);
                     if (rand()%10 == 0){
                         players.setNumKeys(players.getNumKeys()+1);
                     }
                 }
                 else{
+                    cout << "You lost your battle." << endl;
+                    cout << endl;
                     players.setGold(int(players.getGold()*.75));
                     if (players.getIngredients() < 30){
                         players.setIngredients(0);
@@ -534,6 +610,16 @@ int main(){
             }
             else if (userInput == 5){
                 cout << "Game over. You gave up." << endl;
+                cout << endl;
+                playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + players.getGold() + 100*players.getSize() + 10*players.getNumKeys() + 5*players.getNumArmor() + players.getNumClubs() + players.getNumSpears() + 2*players.getNumRapiers() + 3*players.getNumBattleAxes() + 4*players.getNumLongSwords() + players.getNumPots() + players.getNumPans() + players.getNumCauldrons());
+                if (playerHighScores.addHighScore(players.getPlayer(0).getName(), to_string(playerHighScores.getCurrentScore()))){
+                    cout << "YOU BEAT A HIGHSCORE!!!" << endl;
+                    playerHighScores.printScoreBoard();
+                }
+                else{
+                    cout << "No highscores were beat." << endl;
+                    playerHighScores.printScoreBoard();
+                }
                 running = false;
                 break;
             }
@@ -547,15 +633,37 @@ int main(){
         }
         if (players.getAngerLevel() == 100){
             cout << "Game over. There sorcerer has become irritated." << endl;
+            cout << endl;
+            playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + players.getGold() + 100*players.getSize() + 10*players.getNumKeys() + 5*players.getNumArmor() + players.getNumClubs() + players.getNumSpears() + 2*players.getNumRapiers() + 3*players.getNumBattleAxes() + 4*players.getNumLongSwords() + players.getNumPots() + players.getNumPans() + players.getNumCauldrons());
+            if (playerHighScores.addHighScore(players.getPlayer(0).getName(), to_string(playerHighScores.getCurrentScore()))){
+                cout << "YOU BEAT A HIGHSCORE!!!" << endl;
+                playerHighScores.printScoreBoard();
+            }
+            else{
+                cout << "No highscores were beat." << endl;
+                playerHighScores.printScoreBoard();
+            }
             running = false;
             break;
         }
         if (players.getSize() < 2){
             cout << "Game over. You cannot traverse the dungeon alone." << endl;
+            cout << endl;
+            playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + players.getGold() + 100*players.getSize() + 10*players.getNumKeys() + 5*players.getNumArmor() + players.getNumClubs() + players.getNumSpears() + 2*players.getNumRapiers() + 3*players.getNumBattleAxes() + 4*players.getNumLongSwords() + players.getNumPots() + players.getNumPans() + players.getNumCauldrons());
+            if (playerHighScores.addHighScore(players.getPlayer(0).getName(), to_string(playerHighScores.getCurrentScore()))){
+                cout << "YOU BEAT A HIGHSCORE!!!" << endl;
+                playerHighScores.printScoreBoard();
+            }
+            else{
+                cout << "No highscores were beat." << endl;
+                playerHighScores.printScoreBoard();
+            }
             running = false;
             break;
         }
     }
 
+    playerHighScores.writeScoreBoard();
+    players.saveStats();
     return 0;
 }
