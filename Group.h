@@ -28,11 +28,6 @@ class Group
     //public members
     public:
         Group();
-        bool addPlayer(Player p);
-        Player getPlayer(int index);
-        void setPlayerFullness(int index, int fullness);
-        int getSize();
-        void removePlayer(int index);
 
         // getters
         int getRoomsCleared();
@@ -55,6 +50,8 @@ class Group
         int getNumCirclet();
         int getNumGoblet();
         int getTotalWeapons();
+        Player getPlayer(int index);
+        int getSize();
         
         //setters
         void setRoomsCleared(int rooms_cleared_);
@@ -76,7 +73,10 @@ class Group
         void setNumBraclet(int num_braclet);
         void setNumCirclet(int num_circlet);
         void setNumGoblet(int num_goblet);
+        void setPlayerFullness(int index, int fullness);
 
+        void addPlayer(Player p);
+        void removePlayer(int index);
         void statusUpdate();
         void cookFood();
         void saveStats();

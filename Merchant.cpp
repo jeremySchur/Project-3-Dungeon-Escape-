@@ -10,6 +10,7 @@
 #include "Group.h"
 using namespace std;
 
+//split function
 int splitMe(string input_string, char separator, string arr[], int arr_size){
     //declaring variable
     int breakPoint = 0, index = 0, subLen = 0;
@@ -51,6 +52,7 @@ Merchant::Merchant(){
         getline(file, line);
         riddles.push_back(line);
     }
+    file.close();
 }
 
 //returns the multiplyer the merchant has on their prices
@@ -63,14 +65,9 @@ void Merchant::updateMultiplyer(){
     multiplyer += .25;
 }
 
-//prints the buying options for a merchant
-void Merchant::printMenu(){
-
-}
-
-
+//runs the merchant menu when called 
 bool Merchant::openMerchant(Group &players){
-    srand(time(0)); //rand value
+    srand(time(0)); 
     // variables
     bool open = true, access = true;
     int userInput;
@@ -87,7 +84,7 @@ bool Merchant::openMerchant(Group &players){
         cout << "To make sure you aren't a monster. I need you to solve this simple riddle:" << endl;
         cout << endl;
         cout << riddle[0] << endl;
-        cin >> answer; // stoer input
+        cin >> answer; 
         if (!(answer == riddle[1])){ // check input / riddle / answer
             access = false;
         }
@@ -584,7 +581,7 @@ bool Merchant::openMerchant(Group &players){
                     cout << endl;
                 }
                 break;
-            case 6:
+            case 6: // if user picks leave
                 cout << "Are you sure you're finished? You won't be able to buy anything else from me! (y/n)" << endl;
                 cin >> userDecision;
                 while (userDecision != 'y' && userDecision != 'n'){

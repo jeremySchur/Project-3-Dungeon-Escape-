@@ -1,5 +1,5 @@
-Jeremy,600
+Jeremy,1090
 Anthony,600
+Jeremy,600
 Anthony,539
-None,0
 None,0

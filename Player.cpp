@@ -10,10 +10,7 @@
 #include "Player.h"
 using namespace std;
 
-Player::Player(){
-    name = "";
-}
-
+//creates a player with name_ and sets fullness to 50
 Player::Player(string name_){
     name = name_;
     fullness = 50;

@@ -10,6 +10,7 @@
 #include "Scoreboard.h"
 using namespace std;
 
+//split function
 int splitThis(string input_string, char separator, string arr[], int arr_size){
     //declaring variable
     int breakPoint = 0, index = 0, subLen = 0;
@@ -41,6 +42,7 @@ int splitThis(string input_string, char separator, string arr[], int arr_size){
     }
 }
 
+//sorting function for the scores on the scoreboard 
 void sortScore(string arr[][2], int size){
     string largest, temp; // declare varibles
     string largestName, tempName;
@@ -86,6 +88,7 @@ void Scoreboard::printScoreBoard(){
         cout << " " << i+1 << ". " + scoreboard[i][0] + ": " + scoreboard[i][1] << endl;
     }
 }
+//writes the current scoreboard to the scoreboard.txt file
 void Scoreboard::writeScoreBoard(){
     ofstream file("scoreboard.txt");
     for (int i = 0; i < scoreboardSize; i++){ //write scoreboard to a file
@@ -94,7 +97,7 @@ void Scoreboard::writeScoreBoard(){
     file.close();
 }
 
-//adds a user and their highscore to the highscore array
+//adds a user and their highscore to the highscore array, if they beat a highscore
 bool Scoreboard::addHighScore(string name, string highscore){
     for (int i = 0; i < scoreboardSize; i++){ // loop thru scoreboard
         if (stoi(scoreboard[i][1]) < stoi(highscore)){ // check condition of scoreboard to highscore

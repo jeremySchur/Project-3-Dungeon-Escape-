@@ -5,6 +5,7 @@
 #include <ctime>
 using namespace std;
 
+//split function
 int split(string input_string, char separator, string arr[], int arr_size){
     //declaring variable
     int breakPoint = 0, index = 0, subLen = 0;
@@ -36,7 +37,8 @@ int split(string input_string, char separator, string arr[], int arr_size){
     }
 }
 
-string Uppercase(string str){ // check uppercase letters
+//converts a string to all uppercase leters 
+string Uppercase(string str){ 
     for (int i = 0; i < str.length(); i++){ // loop thru
         if ((int)str[i] > 96 && (int)str[i] < 123){ // check asci value
             str[i] -= 32;
@@ -45,15 +47,16 @@ string Uppercase(string str){ // check uppercase letters
     return str;
 }
 
+//creats an instance of a group of monsters
 Monsters::Monsters(string fileName){
     ifstream file(fileName); // variables
     string arr[2];
     string line;
 
-    while (!file.eof()){ // loop while file open
+    while (!file.eof()){ // loop while not at end of file
         getline(file, line);
-        split(line, ',', arr, 2); // split
-        // check 1 value of array compared to values
+        split(line, ',', arr, 2); // split each line
+        // check the tier of the monster and add it to its respective vector
         if (stoi(arr[1]) == 1){ 
             tier1.push_back(arr[0]);
         }
@@ -75,8 +78,9 @@ Monsters::Monsters(string fileName){
     }
 }
 
+//runs the process for fighting a monster
 bool Monsters::fightMonster(Group players, int tier){
-    srand(time(0)); // rand number
+    srand(time(0)); 
     int random, d, userInput; // variables
     double outcome;
     int total = players.getNumClubs() + players.getNumSpears() + 2*players.getNumRapiers() + 3*players.getNumBattleAxes() + 4*players.getNumLongSwords();
@@ -87,7 +91,7 @@ bool Monsters::fightMonster(Group players, int tier){
         d = 0;
     }
 
-    if (tier == 1){ // if tier is 1 print statemnt and check if total is 0 then prompt user for input
+    if (tier == 1){ // if tier is 1 print statemnt and check if the user is able to fight
         random = rand()%tier1.size();
         cout << Uppercase(tier1.at(random)) << " AHEAD! THEY LOOK HOSTILE!" << endl;
         cout << endl;
@@ -308,7 +312,6 @@ bool Monsters::fightMonster(Group players, int tier){
                 cout << "1. Surrender" << endl;
                 cin >> userInput;
             }
-            tier6.erase(tier6.begin());
             return false;
         }
         else{ // user fight/surrender
@@ -324,7 +327,6 @@ bool Monsters::fightMonster(Group players, int tier){
             if (userInput == 1){ // if user input 1
                 outcome = total*(rand()%6 + 1)+d - (tier*(rand()%6 + 1))/players.getNumArmor();
                 if (outcome <= 0){ //outcome less than or equal to 0
-                    tier6.erase(tier6.begin());
                     return false;
                 }
                 else{
@@ -333,7 +335,6 @@ bool Monsters::fightMonster(Group players, int tier){
                 }
             }
             else{ // other input
-                tier6.erase(tier6.begin());
                 return false;
             }
         }

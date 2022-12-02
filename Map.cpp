@@ -61,11 +61,6 @@ Map::Map(){
     map_data_[dungeon_exit_[0]][dungeon_exit_[1]] = EXIT;
 }
 
-//sets the map and all its variables back to their default values
-void Map::resetMap(){
-    
-}
-
 //returns the row of the player position
 int Map::getPlayerRow(){
     return player_position_[0];
@@ -149,12 +144,6 @@ bool Map::isExplored(int row, int col){
         }
     }
     return false;
-}
-
-//returns true if the inputted (row,col) is a free space
-//returns false otherwise
-bool Map::isFreeSpace(int row, int col){
-
 }
 
 //returns true if the inputted (row,col) is the dungeon exit
@@ -286,21 +275,10 @@ void Map::foundNPC(int row, int col){
         }
     }
 }
-//returns true if an NPC is able to be added to the map, i.e. npc_count_ != 5 and (row,col) is not occupied
-//returns false otherwise
-bool Map::addNPC(int row, int col){
-
-}
-
-//returns true if a room is able to be added to the map, i.e. room_count_ != 5 and (row,col) is not occupied
-//returns false otherwise
-bool Map::addRoom(int row, int col){
-
-}
 
 //returns true if an NPC can be removed, i.e. there is an NPC at (row,col)
 //returns false otherwise
-bool Map::removeNPC(int row, int col){
+void Map::removeNPC(int row, int col){
     for (int i = 0; i < npc_count_; i++){
         if (npc_positions_[i][0] == row && npc_positions_[i][1] == col){
             npc_positions_[i][0] = -1;
@@ -317,7 +295,7 @@ bool Map::removeNPC(int row, int col){
 
 //returns true if a room can be removed, i.e. there is a room at (row,col)
 //returns false otherwise
-bool Map::removeRoom(int row, int col){
+void Map::removeRoom(int row, int col){
     for (int i = 0; i < room_count_; i++){
         if (room_positions_[i][0] == row && room_positions_[i][1] == col){
             room_positions_[i][0] = -1;

@@ -19,8 +19,8 @@ using namespace std;
 //main for the entire game run
 int main(){
     srand(time(0));
-    Group players;
-    Map gameMap = Map();
+    Group players; //declaring variables
+    Map gameMap;
     Monsters monsters("monsters.txt");
     Merchant merch;
     Scoreboard playerHighScores;
@@ -47,9 +47,11 @@ int main(){
     cin >> name;
     players.addPlayer(Player(name));
 
+    //prints the current highscores 
     cout << endl;
     cout << "These are the current highscores for Dungeon Escape." << endl;
     playerHighScores.printScoreBoard();
+
     //intro to merchant 
     cout << endl;
     cout << "Between the 5 of you, you have 100 gold pieces." << endl;
@@ -67,7 +69,9 @@ int main(){
     merch.openMerchant(players);
     merch.updateMultiplyer();
 
+    //runs the game
     while (running){
+        //if the current spot the group is on is a npc-location
         if (gameMap.isNPCLocation(gameMap.getPlayerRow(), gameMap.getPlayerCol())){
             players.statusUpdate();
             gameMap.displayMap();
@@ -104,6 +108,9 @@ int main(){
                 }
             }
             else if (userInput == 2){ //input 2
+                if (rand()%5 == 0 || rand()%5 == 0){
+                    players.misfortune(false);
+                }
                 if (merch.openMerchant(players)){
                     playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + 10); // add 10 to score
                     merch.updateMultiplyer();
@@ -162,6 +169,7 @@ int main(){
                 break;
             }
         }
+        //if the current spot the group is on is a room
         else if (gameMap.isRoomLocation(gameMap.getPlayerRow(), gameMap.getPlayerCol())){
             players.statusUpdate(); //updates
             gameMap.displayMap();
@@ -229,7 +237,9 @@ int main(){
                                 players.removePlayer(i); // remove companion
                             }
                         }
-                        //HAVE A MISFORTUNE OCCUR 
+                    }
+                    if (rand()%5 == 0 || rand()%5 == 0){
+                        players.misfortune(true);
                     }
                 }
                 else{
@@ -289,19 +299,18 @@ int main(){
                             else{
                                 players.setIngredients(players.getIngredients() - rand()%31);
                             }
-                            for (int i = 1; i < players.getNumArmor(); i++){ //loop armor
+                            for (int i = 1; i < players.getNumArmor(); i++){ //loop for armor
                                 if (rand()%20 == 0){
                                     cout << "Companion " << players.getPlayer(i).getName() << " has died during combat." << endl; //companion dies
                                     players.removePlayer(i); //remove companion
                                 }
                             }
-                            for (int i = players.getNumArmor(); i < players.getSize(); i++){
+                            for (int i = players.getNumArmor(); i < players.getSize(); i++){ //loop w/o armor
                                 if (rand()%10 == 0){
                                     cout << "Companion " << players.getPlayer(i).getName() << " has died during combat." << endl;// companion dies
                                     players.removePlayer(i); // remove companion
                                 }
-                            }
-                            //HAVE A MISFORTUNE OCCUR 
+                            } 
                         }
                     }
                 }
@@ -323,6 +332,7 @@ int main(){
                 break;
             }
         }
+        //if the current spot the group is on is the dungeon exit
         else if (gameMap.isDungeonExit(gameMap.getPlayerRow(), gameMap.getPlayerCol())){
             players.statusUpdate();
             gameMap.displayMap();
@@ -376,6 +386,7 @@ int main(){
                 }
             }
         }
+        //if the current spot the group is on is an explored space 
         else if (gameMap.isExplored(gameMap.getPlayerRow(), gameMap.getPlayerCol())){
             players.statusUpdate();
             gameMap.displayMap();
@@ -411,6 +422,9 @@ int main(){
                 }
             }
             else if (userInput == 2){ //input 2
+                if (rand()%5 == 0 || rand()%5 == 0){
+                    players.misfortune(false);
+                }
                 if (monsters.fightMonster(players, players.getRoomsCleared() + 1)){//update room cleared
                     cout << "You were victorious in your battle." << endl; // win battle
                     cout << endl;
@@ -446,6 +460,9 @@ int main(){
                 }
             }
             else if (userInput == 3){
+                if (rand()%5 == 0 || rand()%5 == 0){
+                    players.misfortune(false);
+                }
                 players.cookFood();
             }
             else if (userInput == 4){
@@ -465,6 +482,7 @@ int main(){
                 break;
             }
         }
+        //if the current spot the group is on is an unexplored space
         else{
             players.statusUpdate();
             gameMap.displayMap();
@@ -502,6 +520,9 @@ int main(){
                 }
             }
             else if (userInput == 2){ //input 2
+                if (rand()%5 == 0 || rand()%5 == 0){
+                    players.misfortune(false);
+                }
                 playerHighScores.setCurrentScore(playerHighScores.getCurrentScore() + 1);
                 if (rand()%10 == 0){
                     cout << "YOU FOUND A KEY!!!" << endl; //user finds key add 1 to key
@@ -572,6 +593,9 @@ int main(){
                 gameMap.addExploreSpace(gameMap.getPlayerRow(), gameMap.getPlayerCol()); // user pos check 
             }
             else if (userInput == 3){
+                if (rand()%5 == 0 || rand()%5 == 0){
+                    players.misfortune(false);
+                }
                 if (monsters.fightMonster(players, players.getRoomsCleared() + 1)){ // update room clear
                     cout << "You were victorious in your battle." << endl; // win battle
                     cout << endl;
@@ -612,6 +636,9 @@ int main(){
                 }
             }
             else if (userInput == 4){ // input 4
+                if (rand()%5 == 0 || rand()%5 == 0){
+                    players.misfortune(false);
+                }
                 players.cookFood();
             }
             else if (userInput == 5){

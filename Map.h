@@ -39,8 +39,6 @@ private:
 public:
     Map();
 
-    void resetMap();
-
     // getters
     int getPlayerRow();
     int getPlayerCol();
@@ -65,10 +63,8 @@ public:
     // other
     void displayMap();
     bool move(char direction);
-    bool addNPC(int row, int col);
-    bool addRoom(int row, int col);
-    bool removeNPC(int row, int col);
-    bool removeRoom(int row, int col);
+    void removeNPC(int row, int col);
+    void removeRoom(int row, int col);
     void addExploreSpace(int row, int col);
 };
 #endif

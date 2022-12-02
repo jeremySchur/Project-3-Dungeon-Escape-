@@ -2,23 +2,23 @@
 +-------------+
 | STATUS      |
 +-------------+
-| Rooms Cleared: 0 | Keys: 0 | Anger Level: 0
+| Rooms Cleared: 0 | Keys: 0 | Anger Level: 42
 +-------------+
 | INVENTORY   |
 +-------------+
-| Gold        | 100
-| Ingredients | 0 kg
-| Cookware    | P: 0 | F: 0 | C: 0
-| Weapons     | C: 0| S: 0 | R: 0 | B: 0 | L: 0
-| Armor       | 0
-| Treasures   | R: 0 | N: 0 | B: 0 | C: 0 | G: 0
+| Gold        | 125
+| Ingredients | 80 kg
+| Cookware    | P: 0 | F: 0 | C: 1
+| Weapons     | C: 0| S: 0 | R: 1 | B: 1 | L: 0
+| Armor       | 5
+| Treasures   | R: 3 | N: 0 | B: 0 | C: 0 | G: 0
 +-------------+
 | PARTY       |
 +-------------+
-| Anthony | Fullness: 50
-| a | Fullness: 50
-| s | Fullness: 50
-| d | Fullness: 50
-| f | Fullness: 50
+| Jeremy | Fullness: 36
+| a | Fullness: 42
+| s | Fullness: 37
+| d | Fullness: 37
+| f | Fullness: 44
 +-------------+
 

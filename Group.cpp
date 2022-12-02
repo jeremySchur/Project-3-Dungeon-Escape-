@@ -15,50 +15,16 @@ Group::Group()
 {
 }
 
-// adds a player to the players vector
-bool Group::addPlayer(Player p)
-{
-    players.push_back(p);
-}
-
+//returns the player at index
 Player Group::getPlayer(int index)
 {
     return players.at(index);
 }
 
-void Group::setPlayerFullness(int index, int fullness)
-{
-    players.at(index).setFullness(fullness);
-}
-
+//gets the size of the players vector
 int Group::getSize()
 {
     return players.size();
-}
-
-void Group::removePlayer(int index)
-{
-    players.erase(players.begin() + index);
-    if (armor > players.size()){
-        armor--;
-    }
-    if (totalWeapons > players.size()){
-        if (weapons[0] > 0){
-            weapons[0]--;
-        }
-        else if (weapons[1] > 0){
-            weapons[1]--;
-        }
-        else if (weapons[2] > 0){
-            weapons[2]--;
-        }
-        else if (weapons[3] > 0){
-            weapons[3]--;
-        }
-        else if (weapons[4] > 0){
-            weapons[4]--;
-        }
-    }
 }
 
 // returns the rooms cleared
@@ -169,6 +135,12 @@ int Group::getTotalWeapons()
     return totalWeapons;
 }
 
+//sets the players fullness at index to fullness
+void Group::setPlayerFullness(int index, int fullness)
+{
+    players.at(index).setFullness(fullness);
+}
+
 // sets the number of rooms cleared
 void Group::setRoomsCleared(int rooms_cleared_)
 {
@@ -217,7 +189,7 @@ void Group::setNumCauldrons(int num_cauldrons)
     cookware[2] = num_cauldrons;
 }
 
-// sets the number of clubs
+// sets the number of clubs if there is room available
 bool Group::setNumClubs(int num_clubs)
 {
     if (totalWeapons < players.size())
@@ -232,7 +204,7 @@ bool Group::setNumClubs(int num_clubs)
     }
 }
 
-// sets the number of spears
+// sets the number of spears if there is room available 
 bool Group::setNumSpears(int num_spears)
 {
     if (totalWeapons < players.size())
@@ -247,7 +219,7 @@ bool Group::setNumSpears(int num_spears)
     }
 }
 
-// sets the number of rapiers
+// sets the number of rapiers if there is room available 
 bool Group::setNumRapiers(int num_rapiers)
 {
     if (totalWeapons < players.size())
@@ -262,7 +234,7 @@ bool Group::setNumRapiers(int num_rapiers)
     }
 }
 
-// sets the number of battle axes
+// sets the number of battle axes if there is room available 
 bool Group::setNumBattleAxes(int num_battleAxes)
 {
     if (totalWeapons < players.size())
@@ -277,7 +249,7 @@ bool Group::setNumBattleAxes(int num_battleAxes)
     }
 }
 
-// sets the number of longswords
+// sets the number of longswords if there is room available
 bool Group::setNumLongSwords(int num_longSwords)
 {
     if (totalWeapons < players.size())
@@ -292,6 +264,7 @@ bool Group::setNumLongSwords(int num_longSwords)
     }
 }
 
+//sets the number of armor if there is room availble
 bool Group::setNumArmor(int num_armor)
 {
     if (armor < players.size())
@@ -304,27 +277,65 @@ bool Group::setNumArmor(int num_armor)
         return false;
     }
 }
+//sets the number of rings
 void Group::setNumRings(int num_rings)
 {
     treasures[0] = num_rings;
 }
+//sets the number of necklaces 
 void Group::setNumNecklace(int num_necklace)
 {
     treasures[1] = num_necklace;
 }
+//sets the number of braclets
 void Group::setNumBraclet(int num_braclet)
 {
     treasures[2] = num_braclet;
 }
+//sets the number of circlets 
 void Group::setNumCirclet(int num_circlet)
 {
     treasures[3] = num_circlet;
 }
+//sets the number of goblets
 void Group::setNumGoblet(int num_goblet)
 {
     treasures[4] = num_goblet;
 }
 
+// adds a player to the players vector
+void Group::addPlayer(Player p)
+{
+    players.push_back(p);
+}
+
+//removes a player from the players vector and decreases the max count of armor and weapons
+void Group::removePlayer(int index)
+{
+    players.erase(players.begin() + index);
+    if (armor > players.size()){
+        armor--;
+    }
+    if (totalWeapons > players.size()){
+        if (weapons[0] > 0){
+            weapons[0]--;
+        }
+        else if (weapons[1] > 0){
+            weapons[1]--;
+        }
+        else if (weapons[2] > 0){
+            weapons[2]--;
+        }
+        else if (weapons[3] > 0){
+            weapons[3]--;
+        }
+        else if (weapons[4] > 0){
+            weapons[4]--;
+        }
+    }
+}
+
+//prints the status update for the group
 void Group::statusUpdate()
 {   // in game user UI display
     cout << endl;
@@ -351,6 +362,7 @@ void Group::statusUpdate()
     cout << endl;
 }
 
+//runs the food cooking process if that option is selected
 void Group::cookFood()
 {
     int userInput; 
@@ -477,7 +489,8 @@ void Group::cookFood()
     }
 }
 
-void Group::saveStats(){ //UI for user to see ingame
+//saves the final stats for the current game in a file results.txt
+void Group::saveStats(){ 
     ofstream file("results.txt");
     file << endl;
     file << "+-------------+" << endl;
@@ -504,12 +517,228 @@ void Group::saveStats(){ //UI for user to see ingame
     file.close();
 }
 
+//runs the misfortunes when one occurs
 void Group::misfortune(bool room){
     srand(time(0));
+    int random;
     if (room){
-        if(rand()%)
+        if(rand()%10 == 0 || rand()%10 == 0 || rand()%10 == 0){
+            cout << endl;
+            cout << "OH NO! Your team was robbed by dungeon bandits." << endl;
+            random = rand()%5;
+            if (random == 0){
+                if(ingredients > 10){
+                    cout << "You lost 10 kg of ingredients" << endl;
+                    cout << endl;
+                    ingredients -= 10;
+                    
+                }
+                else{
+                    cout << "You had nothing of interest for the bandit to steal." << endl;
+                    cout << endl;
+                }
+            }
+            if (random == 1){
+                if (armor > 0){
+                    cout << "You lost 1 armor." << endl;
+                    cout << endl;
+                    armor--;
+                }
+                else{
+                    cout << "You had nothing of interest for the bandit to steal." << endl;
+                    cout << endl;
+                }
+            }
+            if (random == 2){
+                if (cookware[0] > 0){
+                    cout << "You lost 1 Ceramic Pot." << endl;
+                    cout << endl;
+                    cookware[0]--;
+                }
+                else{
+                    cout << "You had nothing of interest for the bandit to steal." << endl;
+                    cout << endl;
+                }
+            }
+            if (random == 3){
+                if (cookware[1] > 0){
+                    cout << "You lost 1 Frying Pan." << endl;
+                    cout << endl;
+                    cookware[1]--;
+                }
+                else{
+                    cout << "You had nothing of interest for the bandit to steal." << endl;
+                    cout << endl;
+                }
+            }
+            if (random == 4){
+                if (cookware[2] > 0){
+                    cout << "You lost 1 Cauldron." << endl;
+                    cout << endl;
+                    cookware[2]--;
+                }
+                else{
+                    cout << "You had nothing of interest for the bandit to steal." << endl;
+                    cout << endl;
+                }
+            }
+        }
+        else if (rand()%10 == 0){
+            random = rand()%5;
+            if (random == 0){
+                if (weapons[0] > 0){
+                    cout << "OH NO! Your Club broke." << endl;
+                    weapons[0]--;
+                    cout << endl;
+                }
+            }
+            if (random == 1){
+                if(weapons[1] > 0){
+                    cout << "OH NO! Your Spear broke." << endl;
+                    weapons[1]--;
+                    cout << endl;
+                }
+            }
+            if (random == 2){
+                if (weapons[2] > 0){
+                    cout << "OH NO! Your +1 Rapier broke." << endl;
+                    weapons[2]--;
+                    cout << endl;
+                }
+            }
+            if (random == 3){
+                if (weapons[3] > 0){
+                    cout << "OH NO! Your +2 Battle Axe broke." << endl;
+                    weapons[3]--;
+                    cout << endl;
+                }
+            }
+            if (random == 4){
+                if (weapons[4] > 0){
+                    cout << "OH NO! Your +3 Longsword broke." << endl;
+                    weapons[4]--;
+                    cout << endl;
+                }
+            }
+        }
+        else if(rand()%10 == 0 || rand()%10 == 0 || rand()%10 == 0){
+            random = rand()%players.size();
+            cout << "OH NO! " << players.at(random).getName() << " has gotten food poisoning. Lose 10 points of hunger!" << endl;
+            cout << endl;
+            players.at(random).setFullness(players.at(random).getFullness() - 10);
+        }
+        else if (rand()%10 == 0 || rand()%10 == 0 || rand()%10 == 0){
+            random = (rand()%(players.size()-1)) + 1;
+            cout << "OH NO! Your teammate " << players.at(random).getName() << " is trapped in the previous room and is unable to get through. You must continue without them." << endl;
+            cout << endl;
+            removePlayer(random);
+        }
     }
     else{
-
+        if(rand()%10 == 0 || rand()%10 == 0 || rand()%10 == 0){
+            cout << endl;
+            cout << "OH NO! Your team was robbed by dungeon bandits." << endl;
+            random = rand()%5;
+            if (random == 0){
+                if(ingredients > 10){
+                    cout << "You lost 10 kg of ingredients" << endl;
+                    cout << endl;
+                    ingredients -= 10;
+                    
+                }
+                else{
+                    cout << "You had nothing of interest for the bandit to steal." << endl;
+                    cout << endl;
+                }
+            }
+            if (random == 1){
+                if (armor > 0){
+                    cout << "You lost 1 armor." << endl;
+                    armor--
+                    cout << endl;
+                }
+                else{
+                    cout << "You had nothing of interest for the bandit to steal." << endl;
+                    cout << endl;
+                }
+            }
+            if (random == 2){
+                if (cookware[0] > 0){
+                    cout << "You lost 1 Ceramic Pot." << endl;
+                    cookware[0]--;
+                    cout << endl;
+                }
+                else{
+                    cout << "You had nothing of interest for the bandit to steal." << endl;
+                    cout << endl;
+                }
+            }
+            if (random == 3){
+                if (cookware[1] > 0){
+                    cout << "You lost 1 Frying Pan." << endl;
+                    cookware[1]--;
+                    cout << endl;
+                }
+                else{
+                    cout << "You had nothing of interest for the bandit to steal." << endl;
+                    cout << endl;
+                }
+            }
+            if (random == 4){
+                if (cookware[2] > 0){
+                    cout << "You lost 1 Cauldron." << endl;
+                    cookware[2]--;
+                    cout << endl;
+                }
+                else{
+                    cout << "You had nothing of interest for the bandit to steal." << endl;
+                    cout << endl;
+                }
+            }
+        }
+        else if (rand()%10 == 0){
+            random = rand()%5;
+            if (random == 0){
+                if (weapons[0] > 0){
+                    cout << "OH NO! Your Club broke." << endl;
+                    weapons[0]--;
+                    cout << endl;
+                }
+            }
+            if (random == 1){
+                if(weapons[1] > 0){
+                    cout << "OH NO! Your Spear broke." << endl;
+                    weapons[1]--;
+                    cout << endl;
+                }
+            }
+            if (random == 2){
+                if (weapons[2] > 0){
+                    cout << "OH NO! Your +1 Rapier broke." << endl;
+                    weapons[2]--;
+                    cout << endl;
+                }
+            }
+            if (random == 3){
+                if (weapons[3] > 0){
+                    cout << "OH NO! Your +2 Battle Axe broke." << endl;
+                    weapons[3]--;
+                    cout << endl;
+                }
+            }
+            if (random == 4){
+                if (weapons[4] > 0){
+                    cout << "OH NO! Your +3 Longsword broke." << endl;
+                    weapons[4]--;
+                    cout << endl;
+                }
+            }
+        }
+        else if(rand()%10 == 0 || rand()%10 == 0 || rand()%10 == 0){
+            random = rand()%players.size();
+            cout << "OH NO! " << players.at(random).getName() << " has gotten food poisoning. Lose 10 points of hunger!" << endl;
+            cout << endl;
+            players.at(random).setFullness(players.at(random).getFullness() - 10);
+        }
     }
 }
