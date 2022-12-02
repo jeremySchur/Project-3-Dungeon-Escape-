@@ -654,7 +654,7 @@ void Group::misfortune(bool room){
             if (random == 1){
                 if (armor > 0){
                     cout << "You lost 1 armor." << endl;
-                    armor--
+                    armor--;
                     cout << endl;
                 }
                 else{
