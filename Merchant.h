@@ -26,5 +26,6 @@ class Merchant
         
         void updateMultiplyer();
         bool openMerchant(Group &players);
+    
 };
 #endif
